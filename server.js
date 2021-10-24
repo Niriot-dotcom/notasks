@@ -14,9 +14,9 @@ MongoClient.connect(connectionString, (err, client) => {
     if (err) return console.error(err)
     console.log('Conectado a Base de Datos en Mongodb Atlas')
 
-    const db = client.db('NoTasks')
-    const tasks = db.collection('notas')
-    tasks.insertOne(nota)
+    const db = client.db('NoTasks')                             //Conectando a base de datos Notasks
+    const tasks = db.collection('notas')                        //Creando coleccion
+    tasks.insertOne(nota)                                       //Insertando en coleccion
     .then(resultado => {
         console.log(resultado)
     })
