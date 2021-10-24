@@ -12,7 +12,7 @@ const nota = {titulo:"Blender", descripcion:"Terminar el examen de Pato!!!!"};
 
 MongoClient.connect(connectionString, (err, client) => {
     if (err) return console.error(err)
-    console.log('Conectado a Base de Datos')
+    console.log('Conectado a Base de Datos en Mongodb Atlas')
 
     const db = client.db('NoTasks')
     const tasks = db.collection('notas')
