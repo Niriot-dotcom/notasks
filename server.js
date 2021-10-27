@@ -16,11 +16,56 @@ MongoClient.connect(connectionString, (err, client) => {
 
     const db = client.db('NoTasks')                             //Conectando a base de datos Notasks
     const tasks = db.collection('notas')                        //Creando coleccion
-    tasks.insertOne(nota)                                       //Insertando en coleccion
-    .then(resultado => {
-        console.log(resultado)
+    
+
+    app.listen(3000, ()=>{
+        console.log("Conectado")
     })
-    .catch(error => console.error(error))
+
+    //método post(crear)
+    app.post('/', (req,res)=>{
+        tasks.insertOne(nota)                                       //Insertando en coleccion
+        .then(resultado => {
+            console.log("nota creada",resultado)
+        })
+        .catch(error => console.error(error))
+    })
+
+    //método get(leer)
+    app.get('/', (req, res)=>{
+        db.collection('notas').find().toArray() //lo convierte a un arreglo de objetos, devuelve una promesa
+        .then(resultado =>{
+            console.log("Query: \n",resultado)
+            res.send(resultado)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    })
+
+    //put (actualizar)
+
+    //en progreso
+
+    //delete(eliminar)
+    
+    app.delete("/", (req,res)=>{
+        db.collection('notas').deleteOne(
+            {titulo:'Blender'}
+        )
+        .then(respuesta =>{
+            console.log("Eliminado exitosamente")
+        })
+        .catch(error =>{
+            console.log(error)
+        })
+    })
+
 })
+
+
+
+
+
 
 
