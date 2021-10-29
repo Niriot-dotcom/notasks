@@ -24,13 +24,13 @@ MongoClient.connect(connectionString, (err, client) => {
     const tasks = db.collection('notas')                        //Creando coleccion
     
     // Routes
-    app.get('/', (req, res)=>{
+    app.get('/api', (req, res)=>{
         res.send(`
-            <center>You are connected to <b>Notasks</b>!<center>
+            <center>You are connected to <b>Notasks server</b>!<center>
         `)
     })
 
-    app.get('/notes', (req, res)=>{
+    app.get('/api/notes', (req, res)=>{
         db.collection('notas').find().toArray() //lo convierte a un arreglo de objetos, devuelve una promesa
         .then((resultado) => {
             res.send(resultado)
@@ -40,13 +40,17 @@ MongoClient.connect(connectionString, (err, client) => {
         })
     })
 
-    // app.post('/', (req,res)=>{
-    //     tasks.insertOne(nota)
-    //     .then(resultado => {
-    //         console.log("nota creada",resultado)
-    //     })
-    //     .catch(error => console.error(error))
-    // })
+    app.post('/api/notes/create', (req, res) => {
+        console.log("Body request: ", req.body)
+        res.json({
+            msg: "we received your data."
+        });
+        // tasks.insertOne(nota)
+        // .then(resultado => {
+        //     console.log("nota creada",resultado)
+        // })
+        // .catch((error) => console.error(error))
+    })
     
     // app.delete("/", (req,res)=>{
     //     db.collection('notas').deleteOne(

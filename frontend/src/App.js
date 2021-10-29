@@ -1,11 +1,15 @@
 import React from "react";
-import NoteCard from "./components/notes/NoteCard";
+import NotesView from "./components/notes/NotesView";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar } from "react-bootstrap";
+import CreateNote from "./components/notes/CreateNote";
 
 function App() {
   return (
     <div>
-      <NoteCard />
-      <center>React here!</center>
+      <Navbar />
+      <NotesView />
+      <CreateNote />
     </div>
   );
 }
