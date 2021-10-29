@@ -26,12 +26,17 @@ function NotesView() {
 
     return (
         <div className="container">
-            <h1>Notes page </h1>
+            <h1>Notes page</h1>
             <CreateNote />
             {loading
                 ? <h1>Loading...</h1>
                 : notes.map((note, index) => {
-                    return <NoteCard key={index} title={note.title || note.titulo} body={note.body || note.descripcion} />
+                    return <NoteCard 
+                                key={index}
+                                titulo={note.titulo}
+                                descripcion={note.descripcion}
+                                id={note}
+                    />
                 })
             }
         </div>

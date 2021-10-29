@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './navbar.css'
 
 function NavBar() {
+    let isLogged = "";
+
+    useEffect(() => {
+        isLogged = localStorage.getItem("isLogged");
+        console.log(isLogged);
+    }, []);
+
     return (
         <nav>
         <div class="logo">NOTASK</div>
@@ -13,11 +20,12 @@ function NavBar() {
             <li><a class="active" href="/home">Inicio</a></li>
             <li><a href="/login">Entrar</a></li>
             <li><a href="/register">Registrarse</a></li>
-            <li><a href="/profile">Cuenta</a></li>
-            <li><a href="/calendar">Calendario</a></li>
+            {/* <li><a href="/profile">Cuenta</a></li> */}
+            {/* <li><a href="/calendar">Calendario</a></li> */}
             {/* <li><a href="/payments">Pagos</a></li> */}
+            {isLogged && <li><a href="/notes">Notas2</a></li>}
             <li><a href="/notes">Notas</a></li>
-            <li><a href="/progress">Progreso</a></li>
+            {/* <li><a href="/progress">Progreso</a></li> */}
         </ul>
     </nav>
     );
