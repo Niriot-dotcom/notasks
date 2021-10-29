@@ -15,7 +15,6 @@ function Login() {
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
         console.log(e.target.value);
-
     }
 
     const handleSubmit = (e) => {
@@ -33,8 +32,10 @@ function Login() {
             data: payload
         })
         .then((response) => {
-            console.log("You are logged now!", response.status)
+            console.log("You are logged now!", response)
             if (response.status === 200) {
+                localStorage.setItem("id", response.data.id);
+                localStorage.setItem("isLogged", response.data.isLogged);
                 setLogged(true);
             } else {
                 alert("No existe el usuario.")

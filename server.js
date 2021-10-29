@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const mongodb = require('mongodb');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -11,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 //Conexion Base de datos usando Mongodb Atlas
-const MongoClient = require('mongodb').MongoClient
+const MongoClient = mongodb.MongoClient
 var connectionString = 'mongodb+srv://dbUser:UP.2021@cluster0.ytdh1.mongodb.net/NoTasks?retryWrites=true&w=majority'
 
 MongoClient.connect(connectionString, (err, client) => {
@@ -54,6 +55,26 @@ MongoClient.connect(connectionString, (err, client) => {
         })
         .catch((error) => console.error(error))
     })
+    
+    app.delete("/api/notes/delete/:idNote", (req, res) => {
+        console.log("req.idNote params: ", req.params.idNote);
+        var ObjectId = require('mongodb').ObjectId;
+        let idNote = new ObjectId(req.params.idNote);
+        db.collection('notas').deleteOne(
+            // { _id: req.params.idNote }
+            { _id: idNote }
+        )
+        .then((respuesta) => {
+            if (respuesta.deletedCount < 1) {
+                console.log("Registro no encontrado");
+            } else {
+                console.log(respuesta, "Eliminado exitosamente")
+            }
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    })
 
     app.post('/api/user/register', (req, res) => {
         console.log("user", req.body.user)
@@ -69,7 +90,11 @@ MongoClient.connect(connectionString, (err, client) => {
         }
         users.insertOne(persona)
         .then(resultado => {
-            console.log("Nuevo usuario creado", resultado)
+            console.log("Nuevo usuario creado", resultado);
+            res.send({
+                id: resultado.insertedId,
+                isLogged: true
+            })
         })
         .catch((error) => console.error(error))
     })
@@ -83,24 +108,16 @@ MongoClient.connect(connectionString, (err, client) => {
         }
         db.collection('Usuarios').find(persona).toArray()
         .then(resultado => {
-            console.log("Usuario", resultado)
+            console.log("Usuario", resultado[0])
+            let id = resultado[0]._id.toString();
             if(resultado.length) {
-                res.sendStatus(200);
+                res.send({
+                    id: id,
+                    isLogged: true
+                })
             }
             else res.sendStatus(400);
         })
         .catch((error) => console.error(error))
     })
-    
-    // app.delete("/", (req,res)=>{
-    //     db.collection('notas').deleteOne(
-    //         {titulo:'Blender'}
-    //     )
-    //     .then(respuesta =>{
-    //         console.log("Eliminado exitosamente")
-    //     })
-    //     .catch(error =>{
-    //         console.log(error)
-    //     })
-    // })
 })
