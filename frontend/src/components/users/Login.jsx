@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { Redirect } from 'react-router-dom'
 
 function Login() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+    const [isLogged, setLogged] = useState(false);
 
     const handleUserChange = (e) => {
         setUser(e.target.value);
@@ -30,8 +32,13 @@ function Login() {
             method: 'POST',
             data: payload
         })
-        .then(() => {
-            console.log("You are logged now!")
+        .then((response) => {
+            console.log("You are logged now!", response.status)
+            if (response.status === 200) {
+                setLogged(true);
+            } else {
+                alert("No existe el usuario.")
+            }
         })
         .catch((error) => {
             console.log("Internal server error: ", error)
@@ -50,30 +57,34 @@ function Login() {
         // })
     }
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div className="form-input">
-                    <input
-                        placeholder="Nombre de Usuario"
-                        value={user}
-                        type="text"
-                        onChange={handleUserChange}
-                    />
-                </div>
-                <div className="form-input">
-                    <input
-                        placeholder="Contraseña"
-                        value={password}
-                        type="text"
-                        onChange={handlePasswordChange}
-                        //cols="15"
-                    />
-                </div>
-                <button>Create user</button>
-            </form>
-        </div>
-    );
+    if (isLogged) {
+        return <Redirect to = {{ pathname: "/notes" }} />;
+    } else {
+        return (
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-input">
+                        <input
+                            placeholder="Nombre de Usuario"
+                            value={user}
+                            type="text"
+                            onChange={handleUserChange}
+                        />
+                    </div>
+                    <div className="form-input">
+                        <input
+                            placeholder="Contraseña"
+                            value={password}
+                            type="text"
+                            onChange={handlePasswordChange}
+                            //cols="15"
+                        />
+                    </div>
+                    <button>Iniciar sesión</button>
+                </form>
+            </div>
+        );
+    }
 }
 
 export default Login;

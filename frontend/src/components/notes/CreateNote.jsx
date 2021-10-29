@@ -32,17 +32,6 @@ function CreateNote() {
         .catch((error) => {
             console.log("Internal server error: ", error)
         })
-
-        // axios({
-        //     url: 'http://localhost:8080/api/notes',
-        //     method: 'GET',
-        // })
-        // .then((response) => {
-        //     console.log("Data has been sent to the server!", response.data)
-        // })
-        // .catch((error) => {
-        //     console.log("Internal server error: ", error)
-        // })
     }
 
     return (
@@ -50,7 +39,7 @@ function CreateNote() {
             <form onSubmit={handleSubmit}>
                 <div className="form-input">
                     <input
-                        placeholder="Title"
+                        placeholder="Título"
                         value={title}
                         type="text"
                         onChange={handleTitleChange}
@@ -58,7 +47,7 @@ function CreateNote() {
                 </div>
                 <div className="form-input">
                     <textarea
-                        placeholder="Body"
+                        placeholder="Descripción"
                         value={body}
                         type="text"
                         onChange={handleBodyChange}
@@ -67,7 +56,7 @@ function CreateNote() {
                     />
                 </div>
 
-                <button>Create</button>
+                <button>Crear nota</button>
             </form>
         </div>
     );

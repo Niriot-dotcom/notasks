@@ -1,5 +1,6 @@
 import React from "react";
 import './navbar.css'
+
 function NavBar() {
     return (
         <nav>
@@ -9,13 +10,14 @@ function NavBar() {
             <i class='bx bx-menu'></i>
         </label>
         <ul>
-            <li><a class="active" href="#">Inicio</a></li>
-            <li><a href="#">Entrar</a></li>
-            <li><a href="#">Registrarse</a></li>
-            <li><a href="#">Cuenta</a></li>
-            <li><a href="#">Calendario</a></li>
-            <li><a href="#">Pagos</a></li>
-            <li><a href="#">Progreso</a></li>
+            <li><a class="active" href="/home">Inicio</a></li>
+            <li><a href="/login">Entrar</a></li>
+            <li><a href="/register">Registrarse</a></li>
+            <li><a href="/profile">Cuenta</a></li>
+            <li><a href="/calendar">Calendario</a></li>
+            {/* <li><a href="/payments">Pagos</a></li> */}
+            <li><a href="/notes">Notas</a></li>
+            <li><a href="/progress">Progreso</a></li>
         </ul>
     </nav>
     );
