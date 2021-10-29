@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+var ls = require('local-storage');
+
+ls.set('id', '617c3121e01338d5794c84f6');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -23,7 +26,7 @@ MongoClient.connect(connectionString, (err, client) => {
     })
 
     const db = client.db('NoTasks')                             //Conectando a base de datos Notasks
-    const tasks = db.collection('notas')                        //Creando coleccion
+    const usuario = db.collection('Usuarios')                        //Creando coleccion
     
     // Routes
     app.get('/api', (req, res)=>{
@@ -32,39 +35,86 @@ MongoClient.connect(connectionString, (err, client) => {
         `)
     })
 
-    app.get('/api/notes', (req, res)=>{
-        db.collection('notas').find().toArray() //lo convierte a un arreglo de objetos, devuelve una promesa
-        .then((resultado) => {
-            res.send(resultado)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+    app.post('/api/actualizar', (req, res) => {
+        console.log("Body request title: ", req.body.correo)
+        console.log("Body request body: ", req.body.contrasena)
+        console.log("Body request body: ", req.body.universidad)
+        console.log("Body request body: ", req.body.usuario)
+
+        var ObjectID = require('mongodb').ObjectID;
+
+        if(req.body.usuario != ""){
+            usuario.findOneAndUpdate(
+                {"_id": ObjectID(ls.get('id'))},
+                {
+                    $set:{
+                        user:req.body.usuario,
+                    }
+                }
+            )
+            .then(result => {
+                console.log("Modificado correctamente: ",result)
+                })
+            .catch(error => console.error(error))
+        }
+
+        if(req.body.correo != ""){
+            usuario.findOneAndUpdate(
+                {"_id": ObjectID(ls.get('id'))},
+                {
+                    $set:{
+                        mail:req.body.correo
+                    }
+                }
+            )
+            .then(result => {
+                console.log("Modificado correctamente: ",result)
+                })
+            .catch(error => console.error(error))
+        }
+
+        if(req.body.contrasena != ""){
+            usuario.findOneAndUpdate(
+                {"_id": ObjectID(ls.get('id'))},
+                {
+                    $set:{
+                        password:req.body.contrasena
+                    }
+                }
+            )
+            .then(result => {
+                console.log("Modificado correctamente: ",result)
+                })
+            .catch(error => console.error(error))
+        }
+
+        if(req.body.universidad != ""){
+            usuario.findOneAndUpdate(
+                {"_id": ObjectID(ls.get('id'))},
+                {
+                    $set:{
+                        university:req.body.universidad
+                    }
+                }
+            )
+            .then(result => {
+                console.log("Modificado correctamente: ",result)
+                })
+            .catch(error => console.error(error))
+            }
+        
     })
 
-    app.post('/api/notes/create', (req, res) => {
-        console.log("Body request title: ", req.body.title)
-        console.log("Body request body: ", req.body.body)
-        const nota = {
-            title: req.body.title,
-            body: req.body.body
-        }
-        tasks.insertOne(nota)
-        .then(resultado => {
-            console.log("nota creada", resultado)
+    app.delete('/api/eliminarcuenta', (req,res)=>{
+        var ObjectID = require('mongodb').ObjectID;
+        usuario.deleteOne(
+            {"_id": ObjectID(ls.get('id'))}
+        )
+        .then(resultado=>{
+            ls.remove('id')
+            console.log("Eliminado con exito");
+            //Aqui debe ir el redireccionamiento a la página principal
         })
-        .catch((error) => console.error(error))
+        .catch(error => console.error(error))
     })
-    
-    // app.delete("/", (req,res)=>{
-    //     db.collection('notas').deleteOne(
-    //         {titulo:'Blender'}
-    //     )
-    //     .then(respuesta =>{
-    //         console.log("Eliminado exitosamente")
-    //     })
-    //     .catch(error =>{
-    //         console.log(error)
-    //     })
-    // })
 })
