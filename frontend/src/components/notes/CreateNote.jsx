@@ -22,7 +22,7 @@ function CreateNote() {
         };
 
         axios({
-            url: '/api/create',
+            url: 'http://localhost:8080/api/notes/create',
             method: 'POST',
             data: payload
         })
@@ -32,6 +32,17 @@ function CreateNote() {
         .catch((error) => {
             console.log("Internal server error: ", error)
         })
+
+        // axios({
+        //     url: 'http://localhost:8080/api/notes',
+        //     method: 'GET',
+        // })
+        // .then((response) => {
+        //     console.log("Data has been sent to the server!", response.data)
+        // })
+        // .catch((error) => {
+        //     console.log("Internal server error: ", error)
+        // })
     }
 
     return (

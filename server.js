@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+app.use(cors())
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -41,15 +43,17 @@ MongoClient.connect(connectionString, (err, client) => {
     })
 
     app.post('/api/notes/create', (req, res) => {
-        console.log("Body request: ", req.body)
-        res.json({
-            msg: "we received your data."
-        });
-        // tasks.insertOne(nota)
-        // .then(resultado => {
-        //     console.log("nota creada",resultado)
-        // })
-        // .catch((error) => console.error(error))
+        console.log("Body request title: ", req.body.title)
+        console.log("Body request body: ", req.body.body)
+        const nota = {
+            title: req.body.title,
+            body: req.body.body
+        }
+        tasks.insertOne(nota)
+        .then(resultado => {
+            console.log("nota creada", resultado)
+        })
+        .catch((error) => console.error(error))
     })
     
     // app.delete("/", (req,res)=>{
