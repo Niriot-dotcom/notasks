@@ -44,11 +44,9 @@ MongoClient.connect(connectionString, (err, client) => {
     })
 
     app.post('/api/notes/create', (req, res) => {
-        console.log("Body request title: ", req.body.title)
-        console.log("Body request body: ", req.body.body)
         const nota = {
-            title: req.body.title,
-            body: req.body.body
+            titulo: req.body.title,
+            descripcion: req.body.body
         }
         tasks.insertOne(nota)
         .then(resultado => {
@@ -75,6 +73,7 @@ MongoClient.connect(connectionString, (err, client) => {
         })
         .catch((error) => console.error(error))
     })
+
     app.post('/api/user/login', (req, res) => {
         console.log("user", req.body.user)
         console.log("Password", req.body.password)
@@ -85,8 +84,10 @@ MongoClient.connect(connectionString, (err, client) => {
         db.collection('Usuarios').find(persona).toArray()
         .then(resultado => {
             console.log("Usuario", resultado)
-            if(resultado.length) console.log("¡Existe!")
-            else console.log("¡No existe!")
+            if(resultado.length) {
+                res.sendStatus(200);
+            }
+            else res.sendStatus(400);
         })
         .catch((error) => console.error(error))
     })
