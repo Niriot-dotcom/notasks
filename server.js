@@ -58,14 +58,37 @@ MongoClient.connect(connectionString, (err, client) => {
     })
 
     app.post('/api/user/register', (req, res) => {
+        console.log("user", req.body.user)
+
         console.log("The mail", req.body.mail)
         console.log("Password", req.body.password)
         console.log("University", req.body.university)
-        const nota = {
+        const persona = {
+            user: req.body.user,
             mail: req.body.mail,
             password: req.body.password,
             university: req.body.university
         }
+        users.insertOne(persona)
+        .then(resultado => {
+            console.log("Nuevo usuario creado", resultado)
+        })
+        .catch((error) => console.error(error))
+    })
+    app.post('/api/user/login', (req, res) => {
+        console.log("user", req.body.user)
+        console.log("Password", req.body.password)
+        const persona = {
+            "user": req.body.user,
+            "password": req.body.password
+        }
+        db.collection('Usuarios').find(persona).toArray()
+        .then(resultado => {
+            console.log("Usuario", resultado)
+            if(resultado.length) console.log("¡Existe!")
+            else console.log("¡No existe!")
+        })
+        .catch((error) => console.error(error))
     })
     
     // app.delete("/", (req,res)=>{

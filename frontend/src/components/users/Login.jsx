@@ -1,30 +1,17 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-function CreateUser() {
-    const [mail, setMail] = useState("");
+function Login() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
-    const [university, setUniversity] = useState("");
 
     const handleUserChange = (e) => {
         setUser(e.target.value);
         console.log(e.target.value);
     }
 
-    const handleMailChange = (e) => {
-        setMail(e.target.value);
-        console.log(e.target.value);
-    }
-
     const handlePasswordChange = (e) => {
         setPassword(e.target.value);
-        console.log(e.target.value);
-
-    }
-    
-    const handleUniversityChange = (e) => {
-        setUniversity(e.target.value);
         console.log(e.target.value);
 
     }
@@ -35,18 +22,16 @@ function CreateUser() {
 
         const payload = {
             user: user,
-            mail: mail,
             password: password,
-            university: university,
         };
 
         axios({
-            url: 'http://localhost:8080/api/user/register',
+            url: 'http://localhost:8080/api/user/login',
             method: 'POST',
             data: payload
         })
         .then(() => {
-            console.log("You are registered now!")
+            console.log("You are logged now!")
         })
         .catch((error) => {
             console.log("Internal server error: ", error)
@@ -78,27 +63,11 @@ function CreateUser() {
                 </div>
                 <div className="form-input">
                     <input
-                        placeholder="Tu correo"
-                        value={mail}
-                        type="text"
-                        onChange={handleMailChange}
-                    />
-                </div>
-                <div className="form-input">
-                    <input
                         placeholder="Contraseña"
                         value={password}
                         type="text"
                         onChange={handlePasswordChange}
                         //cols="15"
-                    />
-                </div>
-                <div className="form-input">
-                    <input
-                        placeholder="Universidad"
-                        value={university}
-                        type="text"
-                        onChange={handleUniversityChange}
                     />
                 </div>
                 <button>Create user</button>
@@ -107,4 +76,4 @@ function CreateUser() {
     );
 }
 
-export default CreateUser;
+export default Login;
