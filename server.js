@@ -24,6 +24,7 @@ MongoClient.connect(connectionString, (err, client) => {
 
     const db = client.db('NoTasks')                             //Conectando a base de datos Notasks
     const tasks = db.collection('notas')                        //Creando coleccion
+    const users = db.collection("Usuarios")                     //Para manejo de cuentas
     
     // Routes
     app.get('/api', (req, res)=>{
@@ -54,6 +55,17 @@ MongoClient.connect(connectionString, (err, client) => {
             console.log("nota creada", resultado)
         })
         .catch((error) => console.error(error))
+    })
+
+    app.post('/api/user/register', (req, res) => {
+        console.log("The mail", req.body.mail)
+        console.log("Password", req.body.password)
+        console.log("University", req.body.university)
+        const nota = {
+            mail: req.body.mail,
+            password: req.body.password,
+            university: req.body.university
+        }
     })
     
     // app.delete("/", (req,res)=>{
