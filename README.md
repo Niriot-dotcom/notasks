@@ -1,5 +1,16 @@
 # notasks
-•	Descripción general NOTASK
-Página web dedicada a la creación de notas, a través de las cuales los usuarios (mayormente estudiantes), podrán crear eventos que incluirán tareas, exámenes, clases, asesorías, etc. pendientes. Además de eso, tendrán la posibilidad de crear un calendario de pagos, el cual les dirá, mediante datos ingresados por el usuario, el monto y la fecha de los ya mencionados.
-•	Como correr el proyecto
-Entrar al repositorio en GitHub y clonarlo. Posteriormente abrirlo en Visual Studio Code y al abrir una nueva terminal digitar comando “npm install”. Por último digitar el código “npm run dev” y se abrirá una página en el navegador a través del Local Host 3000.
+
+Página web dedicada a la creación de notas, a través de las cuales los usuarios (mayormente estudiantes), podrán crear eventos que incluirán tareas, exámenes, clases, asesorías, pendientes, etc. Además, tendrán la posibilidad de crear un calendario de pagos a partir de los datos ingresados por el usuario, con la finalidad de obtener el monto y la fecha de los ya mencionados.
+
+## Instalación
+1. Clonar el repositorio github.com/Niriot/notasks
+2. Correr el siguiente comando al nivel de la carpeta del repositorio (../notasks) y además dentro de la siguiente carpeta (../notasks/frontend)
+    ```
+    npm install
+    ```
+
+3. Correr el frontend y el backend simultáneamente con el siguiente comando
+    ```
+    npm run dev
+    ```
+4. Entrar desde un navegador a http://localhost:3000/
