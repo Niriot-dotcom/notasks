@@ -56,7 +56,7 @@ function CreateNote() {
                     />
                 </div>
 
-                <button>Crear nota</button>
+                <button class="btn btn-outline-primary" >Crear nota</button>
             </form>
         </div>
     );

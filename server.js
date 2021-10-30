@@ -38,6 +38,7 @@ MongoClient.connect(connectionString, (err, client) => {
         db.collection('notas').find().toArray() //lo convierte a un arreglo de objetos, devuelve una promesa
         .then((resultado) => {
             res.send(resultado)
+            console.log(resultado)
         })
         .catch((error) => {
             console.log(error)
@@ -51,7 +52,7 @@ MongoClient.connect(connectionString, (err, client) => {
         }
         tasks.insertOne(nota)
         .then(resultado => {
-            console.log("nota creada", resultado)
+            console.log("nota creada", resultado);
         })
         .catch((error) => console.error(error))
     })

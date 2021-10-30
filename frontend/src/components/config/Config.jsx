@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap"
 import './styles.css'; 
 
 function Configuracion() {
@@ -65,15 +64,15 @@ function Configuracion() {
         
         <div >
             <div className="formulario container">
-                    <div class="row titulo"> <h1>Configuracion de cuenta</h1></div>
+                    <div className="row titulo"> <h1>Configuracion de cuenta</h1></div>
 
 
                     <form onSubmit={handleSubmit} >
-                        <div class="input-group mb-3 ">
-                            <span class="input-group-text" id="inputGroup-sizing-lg">Usuario</span>
+                        <div className="input-group mb-3 ">
+                            <span className="input-group-text" id="inputGroup-sizing-lg">Usuario</span>
                             <input 
                                 type="text" 
-                                class="form-control" 
+                                className="form-control" 
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default" 
                                 placeholder=""
@@ -82,11 +81,11 @@ function Configuracion() {
                             />
                         </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Correo</span>
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Correo</span>
                             <input 
                                 type="text" 
-                                class="form-control" 
+                                className="form-control" 
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default" 
                                 placeholder=""
@@ -95,11 +94,11 @@ function Configuracion() {
                             />
                         </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
                             <input 
                                 type="text" 
-                                class="form-control" 
+                                className="form-control" 
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default" 
                                 placeholder=""
@@ -108,11 +107,11 @@ function Configuracion() {
                             />
                         </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="inputGroup-sizing-3">Universidad</span>
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-3">Universidad</span>
                             <input 
                                 type="text" 
-                                class="form-control" 
+                                className="form-control" 
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default" 
                                 placeholder=""
@@ -120,15 +119,15 @@ function Configuracion() {
                                 onChange={handleUniChange}
                             />
                         </div>
-                        <button class="btn btn-outline-success">Guardar</button>
+                        <button className="btn btn-outline-success">Guardar</button>
 
                     </form>
 
             </div>
 
             <div class="eliminar container">
-                    <span class="input-group-text" id="inputGroup-sizing-3">Eliminar cuenta</span>
-                    <button class="btn btn-danger" onClick={eliminar}>Eliminar</button>
+                    <span className="input-group-text" id="inputGroup-sizing-3">Eliminar cuenta</span>
+                    <button className="btn btn-danger" onClick={eliminar}>Eliminar</button>
                 </div>
         </div>
     );

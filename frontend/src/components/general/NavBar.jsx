@@ -2,29 +2,26 @@ import React, { useEffect } from "react";
 import './navbar.css'
 
 function NavBar() {
-    let isLogged = "";
-
-    useEffect(() => {
-        isLogged = localStorage.getItem("isLogged");
-        console.log(isLogged);
-    }, []);
+    const isLogged = localStorage.getItem("isLogged");
+    console.log(isLogged);
 
     return (
         <nav>
-        <div class="logo">NOTASK</div>
+        <div className="logo">NOTASKs</div>
         <input type="checkbox" id="click"/>
-        <label for="click" class="menu-btn">
-            <i class='bx bx-menu'></i>
+        <label htmlFor="click" className="menu-btn">
+            <i className='bx bx-menu'></i>
         </label>
         <ul>
-            <li><a class="active" href="/home">Inicio</a></li>
-            <li><a href="/login">Entrar</a></li>
-            <li><a href="/register">Registrarse</a></li>
+            <li><a className="active" href="/home">Inicio</a></li>
+            {!isLogged && <li><a href="/login">Entrar</a></li>}
+            {!isLogged && <li><a href="/register">Registrarse</a></li>}
             {/* <li><a href="/profile">Cuenta</a></li> */}
             {/* <li><a href="/calendar">Calendario</a></li> */}
             {/* <li><a href="/payments">Pagos</a></li> */}
-            {isLogged && <li><a href="/notes">Notas2</a></li>}
-            <li><a href="/notes">Notas</a></li>
+            {isLogged && <li><a href="/notes">Notas</a></li>}
+            {isLogged && <li><a href="/account">Mi cuenta</a></li>}
+            {/*<li><a href="/notes">Notas</a></li>*/}
             {/* <li><a href="/progress">Progreso</a></li> */}
         </ul>
     </nav>

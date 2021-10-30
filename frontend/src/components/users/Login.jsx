@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom'
+import './styles.css'; 
 
 function Login() {
     const [user, setUser] = useState("");
@@ -45,44 +46,60 @@ function Login() {
             console.log("Internal server error: ", error)
         })
         .finally(() => console.log("termine"));
-
-        // axios({
-        //     url: 'http://localhost:8080/api/notes',
-        //     method: 'GET',
-        // })
-        // .then((response) => {
-        //     console.log("Data has been sent to the server!", response.data)
-        // })
-        // .catch((error) => {
-        //     console.log("Internal server error: ", error)
-        // })
     }
 
     if (isLogged) {
+        localStorage.setItem("isLogged", true)
         return <Redirect to = {{ pathname: "/notes" }} />;
     } else {
+        localStorage.setItem("isLogged", false)
         return (
             <div>
+                <div className="inicio">
+                <h1>Inicio de Sesión</h1>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-input">
-                        <input
-                            placeholder="Nombre de Usuario"
-                            value={user}
-                            type="text"
-                            onChange={handleUserChange}
+                    <div class="form-outline mb-4">
+                        <input id="form1Example1" class="form-control" 
+                         placeholder="Nombre de Usuario"
+                         value={user}
+                         type="text"
+                         onChange={handleUserChange}
                         />
+                        <label class="form-label" for="form1Example1">Nombre de Usuario</label>
                     </div>
-                    <div className="form-input">
-                        <input
-                            placeholder="Contraseña"
-                            value={password}
-                            type="text"
-                            onChange={handlePasswordChange}
-                            //cols="15"
+
+                    <div class="form-outline mb-4">
+                        <input type="password" id="form1Example2" class="form-control"
+                         placeholder="Contraseña"
+                         value={password}
+                         type="text"
+                         onChange={handlePasswordChange}
                         />
+                        <label class="form-label" for="form1Example2">Contraseña</label>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col d-flex justify-content-center">
+                    <div class="form-check">
+                        <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="form1Example3"
+                        checked
+                        />
+                        <label class="form-check-label" for="form1Example3"> Remember me </label>
                     </div>
-                    <button>Iniciar sesión</button>
+                    </div>
+
+                    <div class="col">
+                    <a href="#!">Forgot password?</a>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">iniciar sesión</button>
                 </form>
+                </div>
             </div>
         );
     }

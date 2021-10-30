@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import { Card } from "react-bootstrap"
+import './styles.css'; 
 
 function NoteCard(props) {
 
@@ -18,15 +18,16 @@ function NoteCard(props) {
     }
 
     return (
-        <Card style={{ width: '12rem' }}>
-            <Card.Img variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZPMR6tjHCqvKDo9rU_1mIE50_AfVASIDvHg&usqp=CAU" />
-            <Card.Body>
-                <Card.Title>{props.titulo}</Card.Title>
-                <Card.Text>{props.descripcion}</Card.Text>
-                <button onClick={() => handleDelete(props.id._id)}>Eliminar</button>
-                {/* <button onClick={() => console.log(props.id._id)}>Eliminar</button> */}
-            </Card.Body>
-        </Card>
+        <div class="container">
+            <div class="card contenedor">
+                <div class="card-body">
+                    <h5 class="card-title">{props.titulo}</h5>
+                    <p class="card-text">{props.descripcion}</p>
+                    {/*<button onClick={()=>handleDelete(props.id)}>Eliminar</button>*/}
+                    {/*console.log("id de la nota",props.id)*/}
+                </div>
+            </div>
+        </div>
     );
 }
 

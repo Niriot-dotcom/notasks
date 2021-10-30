@@ -11,13 +11,13 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
-
+      
       <Route exact={true} path="/notes">
-        <NotesView />
+      <NotesView/>
       </Route>
 
       <Route exact={true} path="/login">
-        <Login />
+       <Login/>
       </Route>
 
       <Route exact={true} path="/register">
