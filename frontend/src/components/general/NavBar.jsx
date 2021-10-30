@@ -14,8 +14,8 @@ function NavBar() {
         </label>
         <ul>
             <li><a className="active" href="/home">Inicio</a></li>
-            {!isLogged && <li><a href="/login">Entrar</a></li>}
-            {!isLogged && <li><a href="/register">Registrarse</a></li>}
+            <li><a href="/login">Entrar</a></li>
+            <li><a href="/register">Registrarse</a></li>
             {/* <li><a href="/profile">Cuenta</a></li> */}
             {/* <li><a href="/calendar">Calendario</a></li> */}
             {/* <li><a href="/payments">Pagos</a></li> */}
