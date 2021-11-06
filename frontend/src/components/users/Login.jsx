@@ -72,7 +72,6 @@ function Login() {
                         <input type="password" id="form1Example2" class="form-control"
                          placeholder="Contraseña"
                          value={password}
-                         type="text"
                          onChange={handlePasswordChange}
                         />
                         <label class="form-label" for="form1Example2">Contraseña</label>

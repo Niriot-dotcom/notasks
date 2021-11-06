@@ -76,10 +76,38 @@ MongoClient.connect(connectionString, (err, client) => {
             console.log(error)
         })
     })
-
+    let validar = p => {
+        /*
+        let isValid = true, hasNumber = /\d/, hasSChar = RegExp('^a-zA-Z\d');
+        if(p.password.length < 8) isValid = false;
+        console.log(isValid);
+        if(!hasNumber.test(p.password)) isValid = false;
+        console.log(hasNumber.matchAll(p.password));
+        if(!hasSChar.test(p.password)) isValid = false;
+        console.log(hasSChar.matchAll(p.password));
+        if(p.password === p.password.toLowerCase()) isValid = false;
+        console.log(isValid);
+        if(p.password === p.password.toUpperCase()) isValid = false;
+        console.log(isValid);
+        return isValid;
+        */
+        var n = false, l = false, u = false, lg = false, s = false;
+        for(let i = 0; i < p.password.length; i++){
+            var ch = p.password[i];
+            if(isNaN(ch)){
+                if(ch.toLowerCase() == ch.toUpperCase())
+                    s = true;
+                else if(ch == ch.toLowerCase())
+                    l = true;
+                else u = true;
+            }
+            else n = true;
+        }
+        lg = p.password.length >= 8;
+        return lg && n && l && u && s;
+    };
     app.post('/api/user/register', (req, res) => {
         console.log("user", req.body.user)
-
         console.log("The mail", req.body.mail)
         console.log("Password", req.body.password)
         console.log("University", req.body.university)
@@ -89,15 +117,25 @@ MongoClient.connect(connectionString, (err, client) => {
             password: req.body.password,
             university: req.body.university
         }
-        users.insertOne(persona)
-        .then(resultado => {
-            console.log("Nuevo usuario creado", resultado);
-            res.send({
-                id: resultado.insertedId,
-                isLogged: true
+        var eU = false, eM = false, vP = false, vU = false;
+        db.collection('Usuarios').find(persona.user).toArray()
+        .then(resultado => eU = resultado.length);
+        db.collection('Usuarios').find(persona.mail).toArray()
+        .then(resultado => eM = resultado.length);
+        vP = validar(persona);
+        vU = persona.university.length >= 8;
+        console.log()
+        if(!eU && !eM && vP && vU){ 
+            users.insertOne(persona)
+            .then(resultado => {
+                console.log("Nuevo usuario creado", resultado);
+                res.send({
+                    id: resultado.insertedId,
+                    isLogged: true
+                })
             })
-        })
-        .catch((error) => console.error(error))
+            .catch((error) => console.error(error))
+        }
     })
 
     app.post('/api/user/login', (req, res) => {
@@ -107,19 +145,20 @@ MongoClient.connect(connectionString, (err, client) => {
             "user": req.body.user,
             "password": req.body.password
         }
-        db.collection('Usuarios').find(persona).toArray()
-        .then(resultado => {
-            console.log("Usuario", resultado[0])
-            let id = resultado[0]._id.toString();
-            if(resultado.length) {
-                res.send({
-                    id: id,
-                    isLogged: true
-                })
-            }
-            else res.sendStatus(400);
-        })
-        .catch((error) => console.error(error))
+        if(validar(persona))
+            db.collection('Usuarios').find(persona).toArray()
+            .then(resultado => {
+                console.log("Usuario", resultado[0])
+                let id = resultado[0]._id.toString();
+                if(resultado.length) {
+                    res.send({
+                        id: id,
+                        isLogged: true
+                    })
+                }
+                else res.sendStatus(400);
+            })
+            .catch((error) => console.error(error))
     })
 
     app.post('/api/actualizar', (req, res) => {
