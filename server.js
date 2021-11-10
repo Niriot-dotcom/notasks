@@ -123,9 +123,7 @@ MongoClient.connect(connectionString, (err, client) => {
         db.collection('Usuarios').find(persona.mail).toArray()
         .then(resultado => eM = resultado.length);
         vP = validar(persona);
-        vU = persona.university.length >= 8;
-        console.log()
-        if(!eU && !eM && vP && vU){ 
+        if(!eU && !eM && vP){ 
             users.insertOne(persona)
             .then(resultado => {
                 console.log("Nuevo usuario creado", resultado);
@@ -145,20 +143,19 @@ MongoClient.connect(connectionString, (err, client) => {
             "user": req.body.user,
             "password": req.body.password
         }
-        if(validar(persona))
-            db.collection('Usuarios').find(persona).toArray()
-            .then(resultado => {
+        db.collection('Usuarios').find(persona).toArray()
+        .then(resultado => {
+            if(resultado.length) {
                 console.log("Usuario", resultado[0])
                 let id = resultado[0]._id.toString();
-                if(resultado.length) {
-                    res.send({
-                        id: id,
-                        isLogged: true
-                    })
-                }
-                else res.sendStatus(400);
-            })
-            .catch((error) => console.error(error))
+                res.send({
+                    id: id,
+                    isLogged: true
+                })
+            }
+            else res.sendStatus(400);
+        })
+        .catch((error) => console.error(error))
     })
 
     app.post('/api/actualizar', (req, res) => {
