@@ -107,7 +107,6 @@ function CreateUser() {
                         <input type="password" id="form3Example4" class="form-control"
                          placeholder=""
                          value={password}
-                         type="text"
                          onChange={handlePasswordChange}
                         />
                         <label class="form-label" for="form3Example4">Contraseña</label>
