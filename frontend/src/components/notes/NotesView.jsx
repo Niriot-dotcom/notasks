@@ -4,6 +4,7 @@ import CreateNote from "./CreateNote";
 import axios from "axios";
 import { ObjectId } from "bson";
 import './styles.css'; 
+import { Container } from "react-bootstrap";
 
 function NotesView() {
     const [notes, setNotes] = useState([{
@@ -30,13 +31,14 @@ function NotesView() {
         })
     });
 
-    return (<div className="container">
-
-            <h1>Notas de la semana</h1>
-            <div className="row container-flow caja">
+    return (
+        <div>
+            <h1>Notas de la Semana</h1>
+        <div>
+            <div className="grid">
             {   
                 notes.map((notas, index)=>{
-                    return <div className="container col"> <NoteCard 
+                    return <div className="one"> <NoteCard 
                     key={index}
                     titulo={notas.titulo}
                     descripcion={notas.descripcion}
@@ -44,15 +46,13 @@ function NotesView() {
                     </div>
                 })
             }
-            
-            <div className="crear">
-            <h1>Crear una nota</h1>
-            <CreateNote/>
-            </div>
-
-            </div>
+        </div>
+        </div>
+        <div className="crear">
+        <h1>Crear una nota</h1>
+        <CreateNote/>
+        </div>
         </div>);
-
 }
 
 export default NotesView;

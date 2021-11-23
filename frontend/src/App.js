@@ -1,6 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from "./components/general/NavBar";
+import Footer from "./components/general/Footer";
 import Configuracion from "./components/config/Config";
 import NotesView from "./components/notes/NotesView";
 import Register from "./components/users/registro";
@@ -28,6 +29,7 @@ function App() {
         <Configuracion />
       </Route>
       
+      <Footer/>
     </BrowserRouter>
   );
 }

@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+body {
+  position: relative;
+  padding-bottom: 2em;
+  min-height: 100vh;
+}
+.pie-pagina {
+  width: 100%;
+  background-color: #1b1b1b;
+  position: absolute;
+  bottom: 0;
+}
+.pie-pagina .one {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 50px;
+  padding: 45px 0px;
+}
+.pie-pagina .one .box {
+  color: white;
+  font-size: 10px;
+}
+.pie-pagina .two {
+  color: white;
+}
+.pie-pagina .one .box .red-social {
+  font-size: 50px;
+}
