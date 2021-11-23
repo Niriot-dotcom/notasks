@@ -10,7 +10,7 @@ function Footer() {
                     <h1>NOTASKs</h1>
                 </div>
                 <div className="box">
-                    <h3>SOBRE NOSOTROS</h3>
+                    <h3>SOBRE NOSOTROssssssS</h3>
                 </div>
                 <div className="box">
                     <h2>REDES SOCIALES</h2>
