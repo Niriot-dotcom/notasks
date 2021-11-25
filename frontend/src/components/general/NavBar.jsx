@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import './navbar.css'
+// import {"https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"};
 
 function NavBar() {
     const isLogged = localStorage.getItem("isLogged");

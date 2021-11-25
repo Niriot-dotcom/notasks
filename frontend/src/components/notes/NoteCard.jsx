@@ -19,7 +19,7 @@ function NoteCard(props) {
 
     return (
         <div class="container">
-            <div class="card contenedor">
+            <div>
                 <div class="card-body">
                     <h5 class="card-title">{props.titulo}</h5>
                     <p class="card-text">{props.descripcion}</p>
