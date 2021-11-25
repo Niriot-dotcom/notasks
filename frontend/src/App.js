@@ -7,12 +7,17 @@ import NotesView from "./components/notes/NotesView";
 import Register from "./components/users/registro";
 import Login from "./components/users/Login";
 import { BrowserRouter, Route } from "react-router-dom";
+import Home from "./components/general/Home";
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
       
+      <Route exact={true} path="/home">
+        <Home/>
+      </Route>
+
       <Route exact={true} path="/notes">
       <NotesView/>
       </Route>
