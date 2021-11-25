@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+.hola {
+  text-align: center;
+}
+.description {
+  display: grid;
+  grid-template-columns: 75% 25%;
+  margin: 2.5%;
+}
+.description2 {
+  display: grid;
+  grid-template-columns: 25% 75%;
+  margin: 2.5%;
+}
+.carousel {
+  margin-bottom: 4rem;
+}
+.container {
+  align-content: center;
+}
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+.carousel-item {
+  height: 32rem;
+}
+.IMG1 {
+  width: 35%;
+  margin-left: 32%;
+  margin-right: 32%;
+  margin-bottom: 6%;
+}
+.IMG2 {
+  width: 50%;
+  margin-left: 26%;
+  margin-right: 32%;
+  margin-bottom: 10%;
+}
+.carousel_inner {
+  margin: 10%;
+}
+.BODY1 {
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 40%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+}
