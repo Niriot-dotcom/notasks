@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext} from "react";
 import NoteCard from "./NoteCard";
 import CreateNote from "./CreateNote";
+import Progreso from "../Progreso/HeatMap";
 import axios from "axios";
 import { ObjectId } from "bson";
 import './styles.css'; 
-import { Container } from "react-bootstrap";
+import { LoginContext } from "../../App";
 
-function NotesView() {
+function NotesView() { 
+    const {login, setLogin} = useContext(LoginContext);
+    setLogin(true);
+
     const [notes, setNotes] = useState([{
-        id: ObjectId(),
+        _id: ObjectId(),                                                       
         titulo: '',
         descripcion: ''
     }]);
@@ -24,6 +28,7 @@ function NotesView() {
                 console.log("Data has been sent to the server!", response.data);
                 setNotes(response.data);
                 setLoading(false);
+                console.log("DATOS", notes);
             }   
         })
         .catch((error) => {
@@ -31,28 +36,34 @@ function NotesView() {
         })
     });
 
-    return (
-        <div>
-            <h1>Notas de la Semana</h1>
-        <div>
-            <div className="grid">
-            {   
-                notes.map((notas, index)=>{
-                    return <div className="one"> <NoteCard 
-                    key={index}
-                    titulo={notas.titulo}
-                    descripcion={notas.descripcion}
-                    id={notas.id}/>
-                    </div>
-                })
-            }
-        </div>
-        </div>
-        <div className="crear">
-        <h1>Crear una nota</h1>
-        <CreateNote/>
-        </div>
+
+
+    const ProgresoNotas = [];
+    notes.map((notas, index)=>{
+        ProgresoNotas.push(notas._id);
+    })
+
+    return (<div className="container">
+            <h1>Notas de la semana</h1>
+            <div className="row container-flow caja">
+                {   
+                    notes.map((notas, index)=>{
+                        return <div className="container col"> <NoteCard 
+                        key={index}
+                        titulo={notas.titulo}
+                        descripcion={notas.descripcion}
+                        idNota={notas._id}/>
+                        </div>
+                    })
+                }
+            
+                <div className="crear">
+                <h1>Crear una nota</h1>
+                <CreateNote/>
+                </div>
+            </div>
         </div>);
+
 }
 
 export default NotesView;
