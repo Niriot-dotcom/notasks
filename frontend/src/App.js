@@ -19,7 +19,7 @@ function App() {
       </Route>
 
       <Route exact={true} path="/notes">
-      <NotesView/>
+        <NotesView/>
       </Route>
 
       <Route exact={true} path="/login">
