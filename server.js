@@ -35,10 +35,22 @@ MongoClient.connect(connectionString, (err, client) => {
     })
 
     app.get('/api/notes', (req, res)=>{
-        db.collection('notas').find().toArray() //lo convierte a un arreglo de objetos, devuelve una promesa
+        db.collection('notas').find().toArray() 
         .then((resultado) => {
             res.send(resultado)
             console.log(resultado)
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    })
+
+    app.get('/api/notes/:id', (req, res)=>{
+        var ObjectID = require('mongodb').ObjectID;
+        const id = new ObjectID(req.params.id);
+        db.collection('notas').find({ id_usuario: id }).toArray() 
+        .then((resultado) => {
+            res.send(resultado);
         })
         .catch((error) => {
             console.log(error)
@@ -76,38 +88,10 @@ MongoClient.connect(connectionString, (err, client) => {
             console.log(error)
         })
     })
-    let validar = p => {
-        /*
-        let isValid = true, hasNumber = /\d/, hasSChar = RegExp('^a-zA-Z\d');
-        if(p.password.length < 8) isValid = false;
-        console.log(isValid);
-        if(!hasNumber.test(p.password)) isValid = false;
-        console.log(hasNumber.matchAll(p.password));
-        if(!hasSChar.test(p.password)) isValid = false;
-        console.log(hasSChar.matchAll(p.password));
-        if(p.password === p.password.toLowerCase()) isValid = false;
-        console.log(isValid);
-        if(p.password === p.password.toUpperCase()) isValid = false;
-        console.log(isValid);
-        return isValid;
-        */
-        var n = false, l = false, u = false, lg = false, s = false;
-        for(let i = 0; i < p.password.length; i++){
-            var ch = p.password[i];
-            if(isNaN(ch)){
-                if(ch.toLowerCase() == ch.toUpperCase())
-                    s = true;
-                else if(ch == ch.toLowerCase())
-                    l = true;
-                else u = true;
-            }
-            else n = true;
-        }
-        lg = p.password.length >= 8;
-        return lg && n && l && u && s;
-    };
+
     app.post('/api/user/register', (req, res) => {
         console.log("user", req.body.user)
+
         console.log("The mail", req.body.mail)
         console.log("Password", req.body.password)
         console.log("University", req.body.university)
@@ -117,23 +101,15 @@ MongoClient.connect(connectionString, (err, client) => {
             password: req.body.password,
             university: req.body.university
         }
-        var eU = false, eM = false, vP = false, vU = false;
-        db.collection('Usuarios').find(persona.user).toArray()
-        .then(resultado => eU = resultado.length);
-        db.collection('Usuarios').find(persona.mail).toArray()
-        .then(resultado => eM = resultado.length);
-        vP = validar(persona);
-        if(!eU && !eM && vP){ 
-            users.insertOne(persona)
-            .then(resultado => {
-                console.log("Nuevo usuario creado", resultado);
-                res.send({
-                    id: resultado.insertedId,
-                    isLogged: true
-                })
+        users.insertOne(persona)
+        .then(resultado => {
+            console.log("Nuevo usuario creado", resultado);
+            res.send({
+                id: resultado.insertedId,
+                isLogged: true
             })
-            .catch((error) => console.error(error))
-        }
+        })
+        .catch((error) => console.error(error))
     })
 
     app.post('/api/user/login', (req, res) => {
@@ -145,9 +121,9 @@ MongoClient.connect(connectionString, (err, client) => {
         }
         db.collection('Usuarios').find(persona).toArray()
         .then(resultado => {
+            console.log("Usuario", resultado[0])
+            let id = resultado[0]._id.toString();
             if(resultado.length) {
-                console.log("Usuario", resultado[0])
-                let id = resultado[0]._id.toString();
                 res.send({
                     id: id,
                     isLogged: true
@@ -158,17 +134,18 @@ MongoClient.connect(connectionString, (err, client) => {
         .catch((error) => console.error(error))
     })
 
-    app.post('/api/actualizar', (req, res) => {
+    app.post('/api/actualizar/:id', (req, res) => {
         console.log("Body request title: ", req.body.correo)
         console.log("Body request body: ", req.body.contrasena)
         console.log("Body request body: ", req.body.universidad)
         console.log("Body request body: ", req.body.usuario)
 
         var ObjectID = require('mongodb').ObjectID;
+        const { id } = req.params;
 
         if(req.body.usuario != ""){
-            usuario.findOneAndUpdate(
-                {"_id": ObjectID(ls.get('id'))},
+            db.collection('Usuarios').findOneAndUpdate(
+                {"_id": ObjectID(id)},
                 {
                     $set:{
                         user:req.body.usuario,
@@ -182,8 +159,8 @@ MongoClient.connect(connectionString, (err, client) => {
         }
 
         if(req.body.correo != ""){
-            usuario.findOneAndUpdate(
-                {"_id": ObjectID(ls.get('id'))},
+            db.collection('Usuarios').findOneAndUpdate(
+                {"_id": ObjectID(id)},
                 {
                     $set:{
                         mail:req.body.correo
@@ -197,8 +174,8 @@ MongoClient.connect(connectionString, (err, client) => {
         }
 
         if(req.body.contrasena != ""){
-            usuario.findOneAndUpdate(
-                {"_id": ObjectID(ls.get('id'))},
+            db.collection('Usuarios').findOneAndUpdate(
+                {"_id": ObjectID(id)},
                 {
                     $set:{
                         password:req.body.contrasena
@@ -212,8 +189,8 @@ MongoClient.connect(connectionString, (err, client) => {
         }
 
         if(req.body.universidad != ""){
-            usuario.findOneAndUpdate(
-                {"_id": ObjectID(ls.get('id'))},
+            db.collection('Usuarios').findOneAndUpdate(
+                {"_id": ObjectID(id)},
                 {
                     $set:{
                         university:req.body.universidad
@@ -226,18 +203,36 @@ MongoClient.connect(connectionString, (err, client) => {
             .catch(error => console.error(error))
             }
         
+            res.sendStatus(200);
     })
 
-    app.delete('/api/eliminarcuenta', (req,res)=>{
+    app.delete('/api/eliminarcuenta/:id', (req,res)=>{
         var ObjectID = require('mongodb').ObjectID;
-        usuario.deleteOne(
-            {"_id": ObjectID(ls.get('id'))}
+        const { id } = req.params;
+        
+        db.collection('Usuarios').deleteOne(
+            { _id: ObjectID(id) }
         )
         .then(resultado=>{
-            ls.remove('id')
-            console.log("Eliminado con exito");
-            //Aqui debe ir el redireccionamiento a la página principal
+            res.sendStatus(200);
+            console.log(resultado);
         })
         .catch(error => console.error(error))
+        
     })
+
+    app.get('/api/usuario/:id',(req, res)=>{
+        var ObjectID = require('mongodb').ObjectID;
+        const { id } = req.params;
+
+        db.collection('Usuarios').find( { _id: ObjectID(id) } ).toArray()
+        .then((resultado) => {
+            res.send(resultado)
+            console.log("resultado",resultado)
+        })
+        .catch((error) => {
+            console.log("error",error)
+        })
+    })
+
 })

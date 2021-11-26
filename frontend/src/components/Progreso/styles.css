@@ -1,0 +1,26 @@
+.progreso{
+    margin-bottom: 10%;
+    margin-top: 1%;
+    white-space: nowrap;
+    display: flex;
+    justify-content:end;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heatmap{
+    margin-bottom: 3%;
+}
+
+.titulo{
+    margin-top: 2%;
+    margin-bottom: 2.5%;
+    font-size: 4.5vw;
+    display: flex;
+    justify-content:center;
+}
+
+.info{
+    display: flex;
+    justify-content:end;
+}

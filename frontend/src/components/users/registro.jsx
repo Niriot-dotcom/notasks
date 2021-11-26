@@ -60,7 +60,7 @@ function CreateUser() {
     }
 
     if (isLogged) {
-        return <Redirect to = {{ pathname: "/notes" }} />;
+        return <Redirect to={{ pathname: "/notes" }} />;
     } else {
     return (
         <div>
@@ -71,9 +71,10 @@ function CreateUser() {
                     <div class="row mb-4">
                         <div class="col">
                         <div class="form-outline">
-                            <input type="text" id="form3Example1" class="form-control" 
+                            <input id="form3Example1" class="form-control" 
                              placeholder=""
                              value={user}
+                             type="text"
                              onChange={handleUserChange}
                             />
                             <label class="form-label" for="form3Example1">Nombre de Usuario</label>
@@ -81,9 +82,10 @@ function CreateUser() {
                         </div>
                         <div class="col">
                         <div class="form-outline">
-                            <input type="text" id="form3Example2" class="form-control" 
+                            <input id="form3Example2" class="form-control" 
                              placeholder=""
                              value={university}
+                             type="text"
                              onChange={handleUniversityChange}
                              />
                             <label class="form-label" for="form3Example2">Universidad</label>
@@ -92,28 +94,32 @@ function CreateUser() {
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input type="email" id="form3Example3" class="form-control" 
+                        <input id="form3Example3" class="form-control" 
                         placeholder=""
                         value={mail}
+                        type="email"
                         onChange={handleMailChange}
                         />
                         <label class="form-label" for="form3Example3">Correo</label>
                     </div>
 
                     <div class="form-outline mb-4">
-                        <input type="password" id="form3Example4" class="form-control"
+                        <input id="form3Example4" class="form-control"
                          placeholder=""
                          value={password}
+                         type="password"
                          onChange={handlePasswordChange}
                         />
                         <label class="form-label" for="form3Example4">Contraseña</label>
                     </div>
 
-                    <div class="form-check d-flex justify-content-flex-center mb-4">
+                    <div class="form-check d-flex justify-content-center mb-4">
                         <input
-                            class="form-check-input me-2"
-                            type="checkbox"
-                            id="form2Example33"
+                        class="form-check-input me-2"
+                        type="checkbox"
+                        value=""
+                        id="form2Example33"
+                        checked
                         />
                         <label class="form-check-label">
                             Recibir notificaciones

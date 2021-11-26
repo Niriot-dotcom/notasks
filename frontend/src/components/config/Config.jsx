@@ -1,14 +1,50 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Redirect } from 'react-router-dom'
 import './styles.css'; 
+import { LoginContext } from "../../App";
+
 
 function Configuracion() {
+    LoginContext
+    const {login, setLogin} = useContext(LoginContext);
+    setLogin(true);
+
+    const id = localStorage.getItem("id");
+    const [borrar,setBorrar] = useState(false);
+
+    const [loading, setLoading] = useState(true);
     const [correo, setCorreo] = useState("");
     const [contrasena, setContrasena] = useState("");
     const [universidad, setUniversidad] = useState("");
     const [usuario, setUsuario] = useState("");
 
+    useEffect(() => {
+        axios({
+            url: 'http://localhost:8080/api/usuario/'+id.toString(),
+            method: 'GET',
+        })
+        .then((response) => {
+            if(loading){
+                console.log("Data has been sent to the server!", response.data);
+                setLoading(false);
+                console.log(response.data[0].mail);
+                setContrasena(response.data[0].password);
+                setUniversidad(response.data[0].university);
+                setUsuario(response.data[0].user);
+                setCorreo(response.data[0].mail);
+            }
+           
+        })
+        .catch((error) => {
+            console.log("Internal server error: ", error);
+        })
+    });
+
+    
+
     const handleEmailChange = (e) => {
+        console.log(e.target.value);
         setCorreo(e.target.value);
     }
 
@@ -35,12 +71,13 @@ function Configuracion() {
         };
 
         axios({
-            url: 'http://localhost:8080/api/actualizar',
+            url: 'http://localhost:8080/api/actualizar/'+id.toString(),
             method: 'POST',
             data: datos
         })
         .then(() => {
-            console.log("Data has been sent to the server!")
+            console.log("Data has been sent to the server!");
+            alert("Tus datos han sido actualizados!");
         })
         .catch((error) => {
             console.log("Internal server error: ", error)
@@ -49,15 +86,21 @@ function Configuracion() {
 
     const eliminar = (e)=>{
         axios({
-            url: 'http://localhost:8080/api/eliminarcuenta',
+            url: 'http://localhost:8080/api/eliminarcuenta/'+id.toString(),
             method: 'DELETE'
         })
         .then(() => {
             console.log("Eliminado!")
+            setBorrar(true);
+            
         })
         .catch((error) => {
             console.log("Internal server error: ", error)
         })
+    }
+
+    if(borrar){
+        return <Redirect to = {{ pathname: "/Salir" }} />;
     }
 
     return (
@@ -123,12 +166,14 @@ function Configuracion() {
 
                     </form>
 
+                
+
             </div>
 
-            <div class="eliminar container">
+            <div className="eliminar container">
                     <span className="input-group-text" id="inputGroup-sizing-3">Eliminar cuenta</span>
-                    <button className="btn btn-danger" onClick={eliminar}>Eliminar</button>
-                </div>
+                    <button className="btn btn-danger" onClick={eliminar} >Eliminar</button>
+            </div>
         </div>
     );
 }
