@@ -18,11 +18,11 @@ function NoteCard(props) {
     }
 
     return (
-        <div className="container">
-            <div className="card contenedor">
-                <div className="card-body">
-                    <h5 className="card-title">{props.titulo}</h5>
-                    <p className="card-text">{props.descripcion}</p>
+        <div class="container">
+            <div>
+                <div class="card-body">
+                    <h5 class="card-title">{props.titulo}</h5>
+                    <p class="card-text">{props.descripcion}</p>
                     {/*<button onClick={()=>handleDelete(props.id)}>Eliminar</button>*/}
                     {/*console.log("id de la nota",props.id)*/}
                 </div>

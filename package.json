@@ -20,8 +20,6 @@
   },
   "homepage": "https://github.com/Niriot/notasks#readme",
   "dependencies": {
-    "@jaames/iro": "^5.5.2",
-    "@uiw/react-heat-map": "^2.0.0",
     "axios": "^0.24.0",
     "body-parser": "^1.19.0",
     "bootstrap": "^5.1.3",

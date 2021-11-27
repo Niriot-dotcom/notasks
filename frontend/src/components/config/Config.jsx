@@ -1,50 +1,14 @@
 import axios from "axios";
-import React, { useState, useEffect, useContext } from "react";
-import { Redirect } from 'react-router-dom'
+import React, { useState } from "react";
 import './styles.css'; 
-import { LoginContext } from "../../App";
-
 
 function Configuracion() {
-    LoginContext
-    const {login, setLogin} = useContext(LoginContext);
-    setLogin(true);
-
-    const id = localStorage.getItem("id");
-    const [borrar,setBorrar] = useState(false);
-
-    const [loading, setLoading] = useState(true);
     const [correo, setCorreo] = useState("");
     const [contrasena, setContrasena] = useState("");
     const [universidad, setUniversidad] = useState("");
     const [usuario, setUsuario] = useState("");
 
-    useEffect(() => {
-        axios({
-            url: 'http://localhost:8080/api/usuario/'+id.toString(),
-            method: 'GET',
-        })
-        .then((response) => {
-            if(loading){
-                console.log("Data has been sent to the server!", response.data);
-                setLoading(false);
-                console.log(response.data[0].mail);
-                setContrasena(response.data[0].password);
-                setUniversidad(response.data[0].university);
-                setUsuario(response.data[0].user);
-                setCorreo(response.data[0].mail);
-            }
-           
-        })
-        .catch((error) => {
-            console.log("Internal server error: ", error);
-        })
-    });
-
-    
-
     const handleEmailChange = (e) => {
-        console.log(e.target.value);
         setCorreo(e.target.value);
     }
 
@@ -71,13 +35,12 @@ function Configuracion() {
         };
 
         axios({
-            url: 'http://localhost:8080/api/actualizar/'+id.toString(),
+            url: 'http://localhost:8080/api/actualizar',
             method: 'POST',
             data: datos
         })
         .then(() => {
-            console.log("Data has been sent to the server!");
-            alert("Tus datos han sido actualizados!");
+            console.log("Data has been sent to the server!")
         })
         .catch((error) => {
             console.log("Internal server error: ", error)
@@ -85,24 +48,16 @@ function Configuracion() {
     }
 
     const eliminar = (e)=>{
-        if (confirm('¿Estás seguro que deseas eliminar la cuenta?')) {
-            axios({
-                url: 'http://localhost:8080/api/eliminarcuenta/'+id.toString(),
-                method: 'DELETE'
-            })
-            .then(() => {
-                console.log("Eliminado!")
-                setBorrar(true);
-                
-            })
-            .catch((error) => {
-                console.log("Internal server error: ", error)
-            })
-        }
-    }
-
-    if(borrar){
-        return <Redirect to = {{ pathname: "/Salir" }} />;
+        axios({
+            url: 'http://localhost:8080/api/eliminarcuenta',
+            method: 'DELETE'
+        })
+        .then(() => {
+            console.log("Eliminado!")
+        })
+        .catch((error) => {
+            console.log("Internal server error: ", error)
+        })
     }
 
     return (
@@ -114,19 +69,35 @@ function Configuracion() {
 
                     <form onSubmit={handleSubmit} >
                         <div className="input-group mb-3 ">
-                            <span className="input-group-text etiquetas">Usuario</span>
-                            <span className="form-control">{usuario}</span>
-                        </div>
-
-                        <div className="input-group mb-3">
-                            <span className="input-group-text etiquetas">Correo</span>
-                            <span className="form-control">{correo}</span>
-                        </div>
-
-                        <div className="input-group mb-3">
-                            <span className="input-group-text etiquetas">Contraseña</span>
+                            <span className="input-group-text" id="inputGroup-sizing-lg">Usuario</span>
                             <input 
-                                type="password" 
+                                type="text" 
+                                className="form-control" 
+                                aria-label="Sizing example input" 
+                                aria-describedby="inputGroup-sizing-default" 
+                                placeholder=""
+                                value={usuario}
+                                onChange={handleUserChange}
+                            />
+                        </div>
+
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Correo</span>
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                aria-label="Sizing example input" 
+                                aria-describedby="inputGroup-sizing-default" 
+                                placeholder=""
+                                value={correo}
+                                onChange={handleEmailChange}
+                            />
+                        </div>
+
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
+                            <input 
+                                type="text" 
                                 className="form-control" 
                                 aria-label="Sizing example input" 
                                 aria-describedby="inputGroup-sizing-default" 
@@ -135,20 +106,29 @@ function Configuracion() {
                                 onChange={handlePasswordChange}
                             />
                         </div>
+
+                        <div className="input-group mb-3">
+                            <span className="input-group-text" id="inputGroup-sizing-3">Universidad</span>
+                            <input 
+                                type="text" 
+                                className="form-control" 
+                                aria-label="Sizing example input" 
+                                aria-describedby="inputGroup-sizing-default" 
+                                placeholder=""
+                                value={universidad}
+                                onChange={handleUniChange}
+                            />
+                        </div>
                         <button className="btn btn-outline-success">Guardar</button>
 
-                    </form>                
-
-
-                    <div className=" titulo"> <h1>Eliminar Cuenta</h1></div>
-                    <p>Si elimina la cuenta, perderá todo registro de las notas y tareas realizadas</p>
-                    <div className="mb-3">
-                            <span className="btn btn-danger" onClick={eliminar} >Eliminar</span>
-                    </div>
+                    </form>
 
             </div>
 
-            
+            <div class="eliminar container">
+                    <span className="input-group-text" id="inputGroup-sizing-3">Eliminar cuenta</span>
+                    <button className="btn btn-danger" onClick={eliminar}>Eliminar</button>
+                </div>
         </div>
     );
 }
