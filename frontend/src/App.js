@@ -1,5 +1,5 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/general/NavBar";
 import Footer from "./components/general/Footer";
 import Configuracion from "./components/config/Config";
@@ -8,22 +8,23 @@ import Register from "./components/users/registro";
 import Login from "./components/users/Login";
 import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./components/general/Home";
+import Perfil from "./components/progreso/perfil";
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      
+
       <Route exact={true} path="/home">
-        <Home/>
+        <Home />
       </Route>
 
       <Route exact={true} path="/notes">
-        <NotesView/>
+        <NotesView />
       </Route>
 
       <Route exact={true} path="/login">
-       <Login/>
+        <Login />
       </Route>
 
       <Route exact={true} path="/register">
@@ -33,8 +34,12 @@ function App() {
       <Route exact={true} path="/account">
         <Configuracion />
       </Route>
-      <Footer/>
 
+      <Route exact={true} path="/perfil">
+        <Perfil />
+      </Route>
+
+      <Footer />
     </BrowserRouter>
   );
 }
