@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const mongodb = require("mongodb");
+var ObjectID = require("mongodb").ObjectID;
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -50,7 +51,6 @@ MongoClient.connect(connectionString, (err, client) => {
 
   app.get("/api/notes/:id", (req, res) => {
     console.log("el id recibido es: ", req.params.id);
-    var ObjectID = require("mongodb").ObjectID;
     const id = new ObjectID(req.params.id);
     db.collection("notas")
       .find({ id_usuario: id })
@@ -78,7 +78,6 @@ MongoClient.connect(connectionString, (err, client) => {
 
   app.delete("/api/notes/delete/:idNote", (req, res) => {
     console.log("req.idNote params: ", req.params.idNote);
-    var ObjectId = require("mongodb").ObjectId;
     let idNote = new ObjectId(req.params.idNote);
     db.collection("notas")
       .deleteOne(
@@ -188,50 +187,12 @@ MongoClient.connect(connectionString, (err, client) => {
       .catch((error) => console.error(error));
   });
 
-  app.post("/api/actualizar", (req, res) => {
-    console.log("Body request title: ", req.body.correo);
-    console.log("Body request body: ", req.body.contrasena);
-    console.log("Body request body: ", req.body.universidad);
-    console.log("Body request body: ", req.body.usuario);
-
-    var ObjectID = require("mongodb").ObjectID;
-
-    if (req.body.usuario != "") {
-      usuario
-        .findOneAndUpdate(
-          { _id: ObjectID(ls.get("id")) },
-          {
-            $set: {
-              user: req.body.usuario,
-            },
-          }
-        )
-        .then((result) => {
-          console.log("Modificado correctamente: ", result);
-        })
-        .catch((error) => console.error(error));
-    }
-
-    if (req.body.correo != "") {
-      usuario
-        .findOneAndUpdate(
-          { _id: ObjectID(ls.get("id")) },
-          {
-            $set: {
-              mail: req.body.correo,
-            },
-          }
-        )
-        .then((result) => {
-          console.log("Modificado correctamente: ", result);
-        })
-        .catch((error) => console.error(error));
-    }
-
+  app.post("/api/actualizar/:id", (req, res) => {
+    const { id } = req.params;
     if (req.body.contrasena != "") {
-      usuario
+      db.collection("Usuarios")
         .findOneAndUpdate(
-          { _id: ObjectID(ls.get("id")) },
+          { _id: ObjectID(id) },
           {
             $set: {
               password: req.body.contrasena,
@@ -243,33 +204,31 @@ MongoClient.connect(connectionString, (err, client) => {
         })
         .catch((error) => console.error(error));
     }
-
-    if (req.body.universidad != "") {
-      usuario
-        .findOneAndUpdate(
-          { _id: ObjectID(ls.get("id")) },
-          {
-            $set: {
-              university: req.body.universidad,
-            },
-          }
-        )
-        .then((result) => {
-          console.log("Modificado correctamente: ", result);
-        })
-        .catch((error) => console.error(error));
-    }
+    res.sendStatus(200);
   });
 
-  app.delete("/api/eliminarcuenta", (req, res) => {
-    var ObjectID = require("mongodb").ObjectID;
-    usuario
-      .deleteOne({ _id: ObjectID(ls.get("id")) })
+  app.delete("/api/eliminarcuenta/:id", (req, res) => {
+    const { id } = req.params;
+    db.collection("Usuarios")
+      .deleteOne({ _id: ObjectID(id) })
       .then((resultado) => {
-        ls.remove("id");
-        console.log("Eliminado con exito");
-        //Aqui debe ir el redireccionamiento a la página principal
+        res.sendStatus(200);
+        console.log(resultado);
       })
       .catch((error) => console.error(error));
+  });
+
+  app.get("/api/usuario/:id", (req, res) => {
+    const { id } = req.params;
+    db.collection("Usuarios")
+      .find({ _id: ObjectID(id) })
+      .toArray()
+      .then((resultado) => {
+        res.send(resultado);
+        console.log("resultado", resultado);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
   });
 });

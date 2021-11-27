@@ -1,25 +1,33 @@
-
-.formulario{
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.formulario {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
-.contenido{
-    display: flex;
-    /*align-items:flex-end;*/
+.eliminar {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
 }
 
-.eliminar{
-    margin-top: 5%;
-    display: flex;
-    flex-direction: row;
+.titulo {
+  margin-bottom: 5%;
+  display: flex;
+  justify-content: left;
 }
 
-.titulo{
-    margin-bottom: 5%;
-    display: flex;
-    justify-content: left;
+.etiquetas {
+  background-color: aquamarine;
+  padding: 3%;
+  width: 35%;
+}
+
+.contenido {
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  width: 30%;
 }
