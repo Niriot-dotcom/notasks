@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import NoteCard from "./NoteCard";
 import CreateNote from "./CreateNote";
-import axios from "axios";
+import NoteCard from "./NoteCard";
 import { ObjectId } from "bson";
+import axios from "axios";
 import './styles.css'; 
-import { Container } from "react-bootstrap";
+import { Fab } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const MySwal = withReactContent(Swal)
+
 
 function NotesView() {
     const [notes, setNotes] = useState([{
@@ -34,25 +39,40 @@ function NotesView() {
     return (
         <div>
             <h1>Notas de la Semana</h1>
-        <div>
-            <div className="grid">
-            {   
-                notes.map((notas, index)=>{
-                    return <div className="one"> <NoteCard 
-                    key={index}
-                    titulo={notas.titulo}
-                    descripcion={notas.descripcion}
-                    id={notas.id}/>
-                    </div>
-                })
-            }
+            <div>
+                <div className="grid">
+                {   
+                    notes.map((notas, index)=>{
+                        return(
+                            <div>
+                                <NoteCard 
+                                    key={index}
+                                    titulo={notas.titulo}
+                                    descripcion={notas.descripcion}
+                                    id={notas.id}
+                                />      
+                            </div>
+                    )})
+                }
+                </div>
+            </div>
+            {/* Quitar saltos de linea cuando se repare footer */}
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <div className="addbtn">
+            <Fab style = {{fill: "black"}} aria-label="add" onClick={() => {
+                return MySwal.fire(<CreateNote />)
+            }}>
+                <AddIcon />
+            </Fab>
+            </div>
         </div>
-        </div>
-        <div className="crear">
-        <h1>Crear una nota</h1>
-        <CreateNote/>
-        </div>
-        </div>);
+    );
 }
 
 export default NotesView;

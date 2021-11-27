@@ -33,8 +33,8 @@ function App() {
       <Route exact={true} path="/account">
         <Configuracion />
       </Route>
-      
       <Footer/>
+
     </BrowserRouter>
   );
 }

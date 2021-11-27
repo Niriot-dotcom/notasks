@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import './styles.css'; 
+import Card from 'react-bootstrap/Card';
 
 function NoteCard(props) {
 
@@ -17,17 +18,15 @@ function NoteCard(props) {
         })
     }
 
+    console.log(props);
     return (
-        <div class="container">
-            <div>
-                <div class="card-body">
-                    <h5 class="card-title">{props.titulo}</h5>
-                    <p class="card-text">{props.descripcion}</p>
-                    {/*<button onClick={()=>handleDelete(props.id)}>Eliminar</button>*/}
-                    {/*console.log("id de la nota",props.id)*/}
-                </div>
-            </div>
-        </div>
+        <Card>
+            <Card.Header>Borrar</Card.Header>
+            <Card.Body className="one">
+                <Card.Title>{props.titulo}</Card.Title>
+                <Card.Text>{props.descripcion}</Card.Text>
+            </Card.Body>
+        </Card>
     );
 }
 

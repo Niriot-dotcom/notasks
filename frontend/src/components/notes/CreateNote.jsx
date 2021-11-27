@@ -32,6 +32,8 @@ function CreateNote() {
         .catch((error) => {
             console.log("Internal server error: ", error)
         })
+        setTitle("");
+        setBody("");
     }
 
     return (
@@ -45,17 +47,18 @@ function CreateNote() {
                         onChange={handleTitleChange}
                     />
                 </div>
+                <br />
+
                 <div className="form-input">
                     <textarea
                         placeholder="Descripción"
                         value={body}
                         type="text"
                         onChange={handleBodyChange}
-                        cols="30"
-                        rows="10"
+                        cols="22"
+                        rows="5"
                     />
                 </div>
-
                 <button class="btn btn-outline-primary" >Crear nota</button>
             </form>
         </div>
