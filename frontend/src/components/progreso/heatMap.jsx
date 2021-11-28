@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import HeatMap from "@uiw/react-heat-map";
 import { ObjectId } from "bson";
 import "./styles.css";
-
-import NoteCard from "../notes/NoteCard";
+import Card from "react-bootstrap/Card";
 
 function Progreso(props) {
   const [color, setColor] = useState("#FFFFFF");
@@ -123,18 +122,17 @@ function Progreso(props) {
             {notas.has(selected) ? notas.get(selected).length : 0}
           </p>
           {notas.get(selected) &&
-            notas.get(selected).map((Notas_Dia) => {
+            notas.get(selected).map((Notas_Dia, index) => {
               return (
-                <div>
-                  {/*<p>Titulo: {Notas_Dia ? Notas_Dia.titulo : "Sin Notas"}</p>*/}
-                  {/*<p>Descripcion: {Notas_Dia && Notas_Dia.descripcion}</p>*/}
-
-                  <div className="container col">
-                    <NoteCard
-                      titulo={Notas_Dia.titulo}
-                      descripcion={Notas_Dia.descripcion}
-                    />
-                  </div>
+                <div className="container col">
+                  <Card key={index}>
+                    <Card.Header>
+                      <Card.Title>{Notas_Dia.titulo}</Card.Title>
+                    </Card.Header>
+                    <Card.Body className="one">
+                      <Card.Text>{Notas_Dia.descripcion}</Card.Text>
+                    </Card.Body>
+                  </Card>
                 </div>
               );
             })}
