@@ -78,7 +78,7 @@ MongoClient.connect(connectionString, (err, client) => {
 
   app.delete("/api/notes/delete/:idNote", (req, res) => {
     console.log("req.idNote params: ", req.params.idNote);
-    let idNote = new ObjectId(req.params.idNote);
+    let idNote = new ObjectID(req.params.idNote);
     db.collection("notas")
       .deleteOne(
         // { _id: req.params.idNote }
@@ -96,20 +96,6 @@ MongoClient.connect(connectionString, (err, client) => {
       });
   });
   let validar = (p) => {
-    /*
-        let isValid = true, hasNumber = /\d/, hasSChar = RegExp('^a-zA-Z\d');
-        if(p.password.length < 8) isValid = false;
-        console.log(isValid);
-        if(!hasNumber.test(p.password)) isValid = false;
-        console.log(hasNumber.matchAll(p.password));
-        if(!hasSChar.test(p.password)) isValid = false;
-        console.log(hasSChar.matchAll(p.password));
-        if(p.password === p.password.toLowerCase()) isValid = false;
-        console.log(isValid);
-        if(p.password === p.password.toUpperCase()) isValid = false;
-        console.log(isValid);
-        return isValid;
-        */
     var n = false,
       l = false,
       u = false,
@@ -126,7 +112,7 @@ MongoClient.connect(connectionString, (err, client) => {
     lg = p.password.length >= 8;
     return lg && n && l && u && s;
   };
-  app.post("/api/user/register", (req, res) => {
+  app.post("/api/user/register", async (req, res) => {
     console.log("user", req.body.user);
     console.log("The mail", req.body.mail);
     console.log("Password", req.body.password);
@@ -137,31 +123,32 @@ MongoClient.connect(connectionString, (err, client) => {
       password: req.body.password,
       university: req.body.university,
     };
-    var eU = false,
-      eM = false,
-      vP = false,
-      vU = false;
-    db.collection("Usuarios")
-      .find(persona.user)
-      .toArray()
-      .then((resultado) => (eU = resultado.length));
-    db.collection("Usuarios")
-      .find(persona.mail)
-      .toArray()
-      .then((resultado) => (eM = resultado.length));
-    vP = validar(persona);
-    if (!eU && !eM && vP) {
-      users
-        .insertOne(persona)
-        .then((resultado) => {
-          console.log("Nuevo usuario creado", resultado);
-          res.send({
-            id: resultado.insertedId,
-            isLogged: true,
-          });
+    var existeUsuario = false, existeMail = false, personaValida = false;
+        console.log(`Buscandooo: ${persona.user}`)
+        existeUsuario = (await db.collection('Usuarios').find({user: persona.user}).toArray()).length;
+        existeMail = (await db.collection('Usuarios').find({mail: persona.mail}).toArray()).length;
+        personaValida = validar(persona);
+        if(existeUsuario){
+            console.log("Usuario existente");
+            return res.sendStatus(201);
+        }
+        if(existeMail){
+            console.log("Email usado");
+            return res.sendStatus(202);
+        }
+        if(!personaValida){
+            console.log("Constraseña inválida");
+            return res.sendStatus(203);
+        }
+        users.insertOne(persona)
+        .then(resultado => {
+            console.log("Nuevo usuario creado", resultado);
+            res.send({
+                id: resultado.insertedId,
+                isLogged: true
+            })
         })
-        .catch((error) => console.error(error));
-    }
+        .catch((error) => console.error(error))
   });
 
   app.post("/api/user/login", (req, res) => {
@@ -182,7 +169,7 @@ MongoClient.connect(connectionString, (err, client) => {
             id: id,
             isLogged: true,
           });
-        } else res.sendStatus(400);
+        } else res.sendStatus(201);
       })
       .catch((error) => console.error(error));
   });

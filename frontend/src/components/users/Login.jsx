@@ -2,6 +2,11 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom'
 import './styles.css'; 
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const MySwal = withReactContent(Swal)
+
+
 
 function Login() {
     const [user, setUser] = useState("");
@@ -33,13 +38,18 @@ function Login() {
             data: payload
         })
         .then((response) => {
-            console.log("You are logged now!", response)
+            console.log("Data from server:", response)
             if (response.status === 200) {
                 localStorage.setItem("id", response.data.id);
                 localStorage.setItem("isLogged", response.data.isLogged);
                 setLogged(true);
             } else {
-                alert("No existe el usuario.")
+                MySwal.fire({
+                    title: "No existe el usuario.",
+                    icon: "error",
+                    text: 'Revisa tu usuario o contraseña',
+                    confirmButtonText: 'Intenta de nuevo',
+            })
             }
         })
         .catch((error) => {
@@ -97,6 +107,12 @@ function Login() {
                 <button type="submit" class="btn btn-primary btn-block">iniciar sesión</button>
                 </form>
                 </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             </div>
         );
     }

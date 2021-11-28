@@ -34,6 +34,9 @@
     left: auto;
     position: fixed;
 }
+i.icon-color {
+  color: darkgray;
+}
 /* .card-body:hover {
   height: 150px;
 } */
