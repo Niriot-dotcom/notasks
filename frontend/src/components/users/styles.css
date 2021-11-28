@@ -1,4 +1,46 @@
-.inicio{
-    margin: 5% auto;
-    width: 20%;
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+.inicio {
+  background-color: rgb(241, 236, 229);
+  margin-left: 35%;
+  margin-right: 35%;
+  margin-top: 2%;
+  margin-bottom: 10%;
+}
+
+.inicio2 {
+  background-color: rgb(241, 236, 229);
+  margin-left: 35%;
+  margin-right: 35%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.estetica1 {
+  background-color: rgb(241, 236, 229);
+  margin-top: 1%;
+  margin-bottom: 90%;
+}
+.h11 {
+  color: navy;
+  font-family: "Indie Flower", cursive;
+  font-size: 150%;
+}
+.h22 {
+  color: rgb(115, 178, 233);
+  font-family: "Indie Flower", cursive;
+  font-size: 150%;
+}
+
+.estetica {
+  background-color: rgb(241, 236, 229);
+}
+.h1o {
+  color: navy;
+  font-family: "Indie Flower", cursive;
+  font-size: 150%;
+}
+.h2o {
+  color: rgb(115, 178, 233);
+  font-family: "Indie Flower", cursive;
+  font-size: 150%;
 }

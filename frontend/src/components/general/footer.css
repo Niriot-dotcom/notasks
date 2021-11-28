@@ -1,18 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Indie Flower", cursive;
 }
 body {
   position: relative;
-  padding-bottom: 2em;
+  padding-bottom: 0em;
   min-height: 100vh;
 }
 .pie-pagina {
   width: 100%;
-  background-color: #1b1b1b;
+  background-color: rgb(247, 199, 133);
+  font-family: "Indie Flower", cursive;
   position: absolute;
   bottom: 0;
 }
@@ -23,14 +25,14 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 50px;
-  padding: 45px 0px;
+  padding: 15px 0px;
 }
 .pie-pagina .one .box {
-  color: white;
+  color: rgb(173, 101, 0);
   font-size: 10px;
 }
 .pie-pagina .two {
-  color: white;
+  color: rgb(173, 101, 0);
 }
 .pie-pagina .one .box .red-social {
   font-size: 50px;

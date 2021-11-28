@@ -1,13 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Indie Flower", cursive;
 }
 nav {
   height: 80px;
-  background: #1b1b1b;
+  font-family: "Indie Flower", cursive;
+  background: rgb(247, 199, 133);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,7 +17,7 @@ nav {
 }
 nav .logo {
   font-size: 33px;
-  color: #fff;
+  color: rgb(173, 101, 0);
   font-weight: 600;
 }
 nav ul {
@@ -26,7 +28,7 @@ nav ul li {
   margin: 0 5px;
 }
 nav ul li a {
-  color: #fff;
+  color: rgb(173, 101, 0);
   text-decoration: none;
   font-size: 18px;
   font-weight: 500;

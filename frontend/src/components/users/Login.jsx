@@ -54,9 +54,10 @@ function Login() {
     } else {
         localStorage.setItem("isLogged", false)
         return (
-            <div>
+        <div className="estetica" >
+            <div className="estetica">
                 <div className="inicio">
-                <h1>Inicio de Sesión</h1>
+                <h1 className="h1o">Inicio de Sesión</h1>
                 <form onSubmit={handleSubmit}>
                     <div class="form-outline mb-4">
                         <input id="form1Example1" class="form-control" 
@@ -65,7 +66,7 @@ function Login() {
                          type="text"
                          onChange={handleUserChange}
                         />
-                        <label class="form-label" for="form1Example1">Nombre de Usuario</label>
+                        <label class="form-label" for="form1Example1" className="h1o">Nombre de Usuario</label>
                     </div>
 
                     <div class="form-outline mb-4">
@@ -74,7 +75,7 @@ function Login() {
                          value={password}
                          onChange={handlePasswordChange}
                         />
-                        <label class="form-label" for="form1Example2">Contraseña</label>
+                        <label class="form-label" for="form1Example2" className="h1o">Contraseña</label>
                 </div>
 
                 <div class="row mb-4">
@@ -87,19 +88,20 @@ function Login() {
                         id="form1Example3"
                         checked
                         />
-                        <label class="form-check-label" for="form1Example3"> Remember me </label>
+                        <label class="form-check-label" for="form1Example3" className="h2o"> Remember me </label>
                     </div>
                     </div>
 
                     <div class="col">
-                    <a href="#!">Forgot password?</a>
+                    <a href="#!" className="h2">Forgot password?</a>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block">iniciar sesión</button>
+                <button type="submit" class="btn btn-primary btn-block" className="h2o">iniciar sesión</button>
                 </form>
                 </div>
             </div>
+        </div>
         );
     }
 }

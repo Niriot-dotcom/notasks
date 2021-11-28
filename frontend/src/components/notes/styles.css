@@ -3,25 +3,27 @@
   grid-template-columns: 25% 25% 25% 25%;
 }
 .grid .one {
-  background-color: white;
-  border: 2px solid black;
+  background-color: rgb(115, 178, 233);
+  border: 2px solid navy;
   /* border-radius: 5%; */
   margin: 5%;
   overflow: hidden;
   overflow-y: scroll;
 }
 .grid .one:hover {
-  color: darkgray;
-  border-color: darkgray;
+  color: navy;
+  border-color: rgb(115, 178, 233);
 }
 .crear {
-  margin-bottom: 10%;
-  margin-top: 5%;
+  margin-bottom: 1%;
+  margin-top: 1%;
   display: flex;
   justify-content: end;
   flex-direction: column;
   align-items: center;
+  color: rgb(115, 178, 233);
 }
+
 .caja {
   margin-bottom: 20%;
 }
@@ -31,3 +33,14 @@
 /* .card-body:hover {
   height: 150px;
 } */
+
+.h111 {
+  color: navy;
+  font-family: "Indie Flower", cursive;
+  font-size: 250%;
+  text-align: center;
+}
+
+.estetica {
+  background-color: rgb(241, 236, 229);
+}

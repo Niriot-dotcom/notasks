@@ -35,7 +35,7 @@ function CreateNote() {
     }
 
     return (
-        <div>
+        <div className="estetica">
             <form onSubmit={handleSubmit}>
                 <div className="form-input">
                     <input

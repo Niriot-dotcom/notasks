@@ -63,10 +63,10 @@ function CreateUser() {
         return <Redirect to = {{ pathname: "/notes" }} />;
     } else {
     return (
-        <div>
+        <div className="estetica1">
             
-            <div className="inicio">
-                <h1>Registro</h1>
+            <div className="inicio2">
+                <h1 className="h11">Registro</h1>
                 <form onSubmit={handleSubmit}>
                     <div class="row mb-4">
                         <div class="col">
@@ -76,7 +76,7 @@ function CreateUser() {
                              value={user}
                              onChange={handleUserChange}
                             />
-                            <label class="form-label" for="form3Example1">Nombre de Usuario</label>
+                            <label class="form-label" for="form3Example1" className="h11">Nombre de Usuario</label>
                         </div>
                         </div>
                         <div class="col">
@@ -86,7 +86,7 @@ function CreateUser() {
                              value={university}
                              onChange={handleUniversityChange}
                              />
-                            <label class="form-label" for="form3Example2">Universidad</label>
+                            <label class="form-label" for="form3Example2" className="h22">Universidad</label>
                         </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ function CreateUser() {
                         value={mail}
                         onChange={handleMailChange}
                         />
-                        <label class="form-label" for="form3Example3">Correo</label>
+                        <label class="form-label" for="form3Example3" className="h22">Correo</label>
                     </div>
 
                     <div class="form-outline mb-4">
@@ -106,7 +106,7 @@ function CreateUser() {
                          value={password}
                          onChange={handlePasswordChange}
                         />
-                        <label class="form-label" for="form3Example4">Contraseña</label>
+                        <label class="form-label" for="form3Example4" className="h22">Contraseña</label>
                     </div>
 
                     <div class="form-check d-flex justify-content-flex-center mb-4">
@@ -115,11 +115,11 @@ function CreateUser() {
                             type="checkbox"
                             id="form2Example33"
                         />
-                        <label class="form-check-label">
+                        <label class="form-check-label" className="h22">
                             Recibir notificaciones
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block mb-4">Registrar</button>
+                    <button type="submit" class="btn btn-primary btn-block mb-4" className="h22">Registrar</button>
             </form>
             </div>
         </div>

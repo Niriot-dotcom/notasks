@@ -32,8 +32,8 @@ function NotesView() {
     });
 
     return (
-        <div>
-            <h1>Notas de la Semana</h1>
+        <div >
+            <h1 className="h111">Notas de la Semana</h1>
         <div>
             <div className="grid">
             {   
@@ -49,7 +49,7 @@ function NotesView() {
         </div>
         </div>
         <div className="crear">
-        <h1>Crear una nota</h1>
+        <h1 className="h111">Crear una nota</h1>
         <CreateNote/>
         </div>
         </div>);

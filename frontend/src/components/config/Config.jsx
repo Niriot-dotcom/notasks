@@ -64,12 +64,12 @@ function Configuracion() {
         
         <div >
             <div className="formulario container">
-                    <div className="row titulo"> <h1>Configuracion de cuenta</h1></div>
+                    <div className="row titulo"> <h1 className="h1a">Configuracion de cuenta</h1></div>
 
 
                     <form onSubmit={handleSubmit} >
                         <div className="input-group mb-3 ">
-                            <span className="input-group-text" id="inputGroup-sizing-lg">Usuario</span>
+                            <span className="input-group-text" id="inputGroup-sizing-lg"  className="h2a">Usuario</span>
                             <input 
                                 type="text" 
                                 className="form-control" 
@@ -82,7 +82,7 @@ function Configuracion() {
                         </div>
 
                         <div className="input-group mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-default">Correo</span>
+                            <span className="input-group-text" id="inputGroup-sizing-default"  className="h2a">Correo</span>
                             <input 
                                 type="text" 
                                 className="form-control" 
@@ -95,7 +95,7 @@ function Configuracion() {
                         </div>
 
                         <div className="input-group mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-default">Contraseña</span>
+                            <span className="input-group-text" id="inputGroup-sizing-default"  className="h2a">Contraseña</span>
                             <input 
                                 type="text" 
                                 className="form-control" 
@@ -108,7 +108,7 @@ function Configuracion() {
                         </div>
 
                         <div className="input-group mb-3">
-                            <span className="input-group-text" id="inputGroup-sizing-3">Universidad</span>
+                            <span className="input-group-text" id="inputGroup-sizing-3"  className="h2a">Universidad</span>
                             <input 
                                 type="text" 
                                 className="form-control" 
@@ -119,15 +119,15 @@ function Configuracion() {
                                 onChange={handleUniChange}
                             />
                         </div>
-                        <button className="btn btn-outline-success">Guardar</button>
+                        <button className="btn btn-outline-success"  className="h1a">Guardar</button>
 
                     </form>
 
             </div>
 
             <div class="eliminar container">
-                    <span className="input-group-text" id="inputGroup-sizing-3">Eliminar cuenta</span>
-                    <button className="btn btn-danger" onClick={eliminar}>Eliminar</button>
+                    <span className="input-group-text" id="inputGroup-sizing-3"  className="h2a">Eliminar cuenta</span>
+                    <button className="btn btn-danger" onClick={eliminar}  className="h1a">Eliminar</button>
                 </div>
         </div>
     );
