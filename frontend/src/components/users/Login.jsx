@@ -107,6 +107,12 @@ function Login() {
                 <button type="submit" class="btn btn-primary btn-block">iniciar sesión</button>
                 </form>
                 </div>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
             </div>
         );
     }

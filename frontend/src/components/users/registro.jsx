@@ -158,6 +158,12 @@ function CreateUser() {
                     <button type="submit" class="btn btn-primary btn-block mb-4">Registrar</button>
             </form>
             </div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
         </div>
     );
     }
