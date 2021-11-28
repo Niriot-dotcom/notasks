@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState } from "react";
 import './styles.css'; 
 import { Redirect }  from 'react-router-dom';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+const MySwal = withReactContent(Swal)
 
 function CreateUser() {
     const [mail, setMail] = useState("");
@@ -49,9 +52,42 @@ function CreateUser() {
             method: 'POST',
             data: payload
         })
-        .then(() => {
-            console.log("You are registered now!")
-            setLogged(true);
+        .then((response) => {
+            console.log("Data from server:", response)
+            var textAlert = "";
+            if (response.status === 200)
+                setLogged(true);
+            if(response.status === 201) 
+                textAlert = "Ese usuario ya existe.";
+            if(response.status === 202)
+                textAlert = "Ese correo ya ha sido utilizado.";
+            if(response.status === 203){
+                textAlert = 
+                `
+                    <h3>Contraseña invalida.</h3>
+                    <center>
+                    <div align = "start" style = "width: 18vw"> 
+                        Debe contener:
+                        <ul>
+                            <li>Numeros</li>
+                            <li>Minúsculas</li>
+                            <li>Mayúsculas</li>
+                            <li>Longitud mínima de 8</li>
+                            <li>Caracteres especiales</li>
+                        </ul>
+                    </div>
+                    </center>
+                `;
+            }
+            if(response.status !== 200) {
+                MySwal.fire({
+                    title: "Error al registrarse.",
+                    icon: "error",
+                    html: textAlert,
+                    confirmButtonText: 'Intenta de nuevo',
+            })
+            }
+
         })
         .catch((error) => {
             console.log("Internal server error: ", error)

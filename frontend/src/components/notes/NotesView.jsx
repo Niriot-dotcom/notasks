@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CreateNote from "./CreateNote";
-import NoteCard from "./NoteCard";
 import { ObjectId } from "bson";
 import axios from "axios";
 import './styles.css'; 
@@ -8,8 +7,9 @@ import { Fab } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-const MySwal = withReactContent(Swal)
+import Card from 'react-bootstrap/Card';
 
+const MySwal = withReactContent(Swal)
 
 function NotesView() {
     const [notes, setNotes] = useState([{
@@ -17,7 +17,21 @@ function NotesView() {
         titulo: '',
         descripcion: ''
     }]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(0);
+
+    const handleDelete = (idNote) => {
+        axios({
+            url: 'http://localhost:8080/api/notes/delete/' + idNote,
+            method: 'DELETE',
+        })
+        .then((response) => {
+            console.log("Data has been sent to the server!", response.data);
+        })
+        .catch((error) => {
+            console.log("Internal server error: ", error);
+        })
+        .finally(setLoading(loading - 1))
+    }
 
     useEffect(() => {
         axios({
@@ -25,17 +39,13 @@ function NotesView() {
             method: 'GET',
         })
         .then((response) => {
-            if (loading) {
-                console.log("Data has been sent to the server!", response.data);
-                setNotes(response.data);
-                setLoading(false);
-            }   
+            console.log("Data has been sent to the server!", response.data);
+            setNotes(response.data);
         })
         .catch((error) => {
             console.log("Internal server error: ", error);
         })
-    });
-
+    }, [loading]);
     return (
         <div>
             <h1>Notas de la Semana</h1>
@@ -44,14 +54,20 @@ function NotesView() {
                 {   
                     notes.map((notas, index)=>{
                         return(
-                            <div>
-                                <NoteCard 
-                                    key={index}
-                                    titulo={notas.titulo}
-                                    descripcion={notas.descripcion}
-                                    id={notas.id}
-                                />      
-                            </div>
+                            <Card key = {index}>
+                                <Card.Header>
+                                    <div align = "right">
+                                    <a href = "#!" class="secondary-content" onClick= {() => handleDelete(notas._id)}>
+                                        <i class="material-icons icon-color">delete_sweep</i>
+                                    </a>
+                                    </div>
+                    
+                                </Card.Header>
+                                <Card.Body className="one">
+                                    <Card.Title>{notas.titulo}</Card.Title>
+                                    <Card.Text>{notas.descripcion}</Card.Text>
+                                </Card.Body>
+                            </Card>
                     )})
                 }
                 </div>
@@ -65,8 +81,8 @@ function NotesView() {
             <br />
             <br />
             <div className="addbtn">
-            <Fab style = {{fill: "black"}} aria-label="add" onClick={() => {
-                return MySwal.fire(<CreateNote />)
+            <Fab aria-label="add" onClick={() => {
+                MySwal.fire(<CreateNote />).then(() => setLoading(loading + 1))
             }}>
                 <AddIcon />
             </Fab>

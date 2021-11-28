@@ -39,6 +39,8 @@ function CreateNote() {
     return (
         <div>
             <form onSubmit={handleSubmit}>
+                <h1>Crea una nueva nota</h1>
+                <br></br>
                 <div className="form-input">
                     <input
                         placeholder="Título"
