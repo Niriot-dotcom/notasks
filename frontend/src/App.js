@@ -2,7 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/general/NavBar";
 import Footer from "./components/general/Footer";
-import Configuracion from "./components/config/Config";
 import NotesView from "./components/notes/NotesView";
 import Register from "./components/users/registro";
 import Login from "./components/users/Login";
@@ -29,10 +28,6 @@ function App() {
 
       <Route exact={true} path="/register">
         <Register />
-      </Route>
-
-      <Route exact={true} path="/account">
-        <Configuracion />
       </Route>
 
       <Route exact={true} path="/perfil">

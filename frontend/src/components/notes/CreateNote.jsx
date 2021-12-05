@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css"
+
 
 function CreateNote() {
     const [title, setTitle] = useState("");
@@ -12,17 +14,18 @@ function CreateNote() {
     const handleBodyChange = (e) => {
         setBody(e.target.value);
     }
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        const id = localStorage.getItem("id");
+        
         const payload = {
             title: title,
             body: body
         };
 
         axios({
-            url: 'http://localhost:8080/api/notes/create',
+            url: 'http://localhost:8080/api/notes/create/'+id,
             method: 'POST',
             data: payload
         })
@@ -37,7 +40,7 @@ function CreateNote() {
     }
 
     return (
-        <div>
+        <div >
             <form onSubmit={handleSubmit}>
                 <h1>Crea una nueva nota</h1>
                 <br></br>

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import HeatMap from "@uiw/react-heat-map";
 import { ObjectId } from "bson";
 import "./styles.css";
 import Card from "react-bootstrap/Card";
 
+
+
 function Progreso(props) {
-  const [color, setColor] = useState("#FFFFFF");
+  const [range, setRange] = useState("#fff");
   console.log("rendering progreso component");
 
   //Porgreso por día dependiendo del número de Notas
@@ -13,7 +15,7 @@ function Progreso(props) {
   const progreso_dia = new Map(); //Guardar todas las notas en un map
   const notas = new Map([]);
   props.Fechas.map((Notas) => {
-    var dateN = new Date(ObjectId(Notas._id).getTimestamp());
+    var dateN = new Date(Notas.fecha_fin);
     var fecha =
       dateN.getFullYear() +
       "/" +
@@ -44,10 +46,20 @@ function Progreso(props) {
     });
   }
 
+  
+
   console.log("Progreso heatmap", valores);
 
   //Fecha del Progreso por año
   var today = new Date();
+  console.log("hoy",today);
+
+  if(valores.length === 0){
+    valores.push({
+      date: "2000/1/1",
+      count: 0,
+    })
+  }
 
   var dateActual = "";
   //dateActual+=(today.getFullYear())+'/'+(today.getMonth()+1)+'/'+(today.getDate()+1);
@@ -70,14 +82,33 @@ function Progreso(props) {
   console.log("Fecha inicio", dateInicio);
   const [selected, setSelected] = useState("");
 
-  var w = window.innerWidth;
+  function useWindowSize() {
+    const [size, setSize] = useState([0, 0]);
+    useLayoutEffect(() => {
+      function updateSize() {
+        setSize([window.innerWidth, window.innerHeight]);
+      }
+      window.addEventListener('resize', updateSize);
+      updateSize();
+      return () => window.removeEventListener('resize', updateSize);
+    }, []);
+    return size;
+  }
+  
+  const [width, height] = useWindowSize();
+
   return (
     <div>
-      <div className="heatmap">
+      <span>Window size: {((width*70)/100)} x {height} {((width*70)/100)/100 +10}</span>;
+
+      <div className="heatmap" style={{"backgroundColor": props.colorfondo}}>
         <HeatMap
           value={valores}
           rectSize={20}
+          legendCellSize = {20}
           width={1200}
+          height={250}
+          style={{ color: props.color }}
           startDate={new Date(dateInicio)}
           weekLabels={["D", "L", "M", "M", "J", "V", "S"]}
           rectProps={{ rx: 5 }}
@@ -109,6 +140,14 @@ function Progreso(props) {
               />
             );
           }}
+
+          legendRender={(props) => <rect {...props} y={props.y + 10} rx={props.range} />}
+          rectProps={{
+            rx: props.range
+          }}
+        
+        className="mapadecolor"
+        
         />
       </div>
 
@@ -124,8 +163,8 @@ function Progreso(props) {
           {notas.get(selected) &&
             notas.get(selected).map((Notas_Dia, index) => {
               return (
-                <div className="container col">
-                  <Card key={index}>
+                <div className="container col" key={index}>
+                  <Card>
                     <Card.Header>
                       <Card.Title>{Notas_Dia.titulo}</Card.Title>
                     </Card.Header>

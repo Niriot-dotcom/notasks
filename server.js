@@ -53,7 +53,11 @@ MongoClient.connect(connectionString, (err, client) => {
     console.log("el id recibido es: ", req.params.id);
     const id = new ObjectID(req.params.id);
     db.collection("notas")
-      .find({ id_usuario: id })
+      .find({ 
+      id_usuario: id,
+      estatus: true
+      }
+      )
       .toArray()
       .then((resultado) => {
         res.send(resultado);
@@ -63,25 +67,129 @@ MongoClient.connect(connectionString, (err, client) => {
       });
   });
 
-  app.post("/api/notes/create", (req, res) => {
+  app.get("/api/notes/unfinished/:id", (req, res) => {
+    console.log("el id recibido es: ", req.params.id);
+    const id = new ObjectID(req.params.id);
+    db.collection("notas")
+      .find(
+      { 
+        id_usuario: id,
+        estatus: false
+      }
+      )
+      .toArray()
+      .then((resultado) => {
+        res.send(resultado);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
+  app.post("/api/notes/check/:id", (req, res) => {
+    console.log("el id recibido es: ", req.params.id);
+    const idNote = new ObjectID(req.params.id);
+    var today = new Date();
+    db.collection("notas")
+      .findOneAndUpdate(
+        { _id: idNote },
+        {
+          $set: {
+            estatus: true,
+            fecha_fin: today,
+          },
+        }
+      )
+      .then((resultado) => {
+        return res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  });
+
+  app.post("/api/notes/create/:id", (req, res) => {
+    const id = new ObjectID(req.params.id);
+    var today = new Date();
     const nota = {
       titulo: req.body.title,
       descripcion: req.body.body,
+      estatus: false,
+      id_usuario: id,
+      fecha_fin: today
     };
     tasks
       .insertOne(nota)
       .then((resultado) => {
         console.log("nota creada", resultado);
+        return res.sendStatus(200);
       })
       .catch((error) => console.error(error));
   });
 
+
+  app.post("/api/notes/personalizar/:id", (req, res) => {
+    const id = new ObjectID(req.params.id);
+    const personalizar = {
+      color_fondo: req.body.color_fondo,
+      color_leyenda: req.body.color_leyenda,
+      rect: parseInt(req.body.rect),
+      id_usuario: id
+    };
+      db.collection("personalizar")
+      .insertOne(personalizar)
+      .then((resultado) => {
+        console.log("Cambios aplicados!", resultado);
+        return res.sendStatus(200);
+      })
+      .catch((error) => console.error(error));
+  });
+
+  app.post("/api/notes/personalizar/update/:id", (req, res) => {
+    const id = new ObjectID(req.params.id);
+    console.log("body", req.body);
+      db.collection("personalizar")
+      .findOneAndUpdate(
+        {id_usuario: id },
+        {
+          $set: {
+            color_fondo: req.body.color_fondo,
+            color_leyenda: req.body.color_leyenda,
+            rect: parseInt(req.body.rect)
+          },
+        }
+      )
+      .then((resultado) => {
+        console.log("Cambios aplicados!");
+        return res.sendStatus(200);
+      })
+      .catch((error) => console.error(error));
+  });
+
+  app.get("/api/personalizar/:id", (req, res) => {
+      const id = new ObjectID(req.params.id);
+      console.log("Id DE USUARIO:",id);
+      db.collection("personalizar")
+      .find({ 
+        id_usuario: id,
+      }
+      )
+      .toArray()
+      .then((resultado) => {
+        console.log("Personalizacion", resultado);
+        res.send(resultado[0]);
+      })
+      .catch((error) => {
+        console.log("Error que causa",error);
+      });
+  });
+
   app.delete("/api/notes/delete/:idNote", (req, res) => {
-    console.log("req.idNote params: ", req.params.idNote);
-    let idNote = new ObjectID(req.params.idNote);
+    console.log("Nota que será eliminada ", req.params.idNote);
+    var idNote = new ObjectID(req.params.idNote);
+    
     db.collection("notas")
       .deleteOne(
-        // { _id: req.params.idNote }
         { _id: idNote }
       )
       .then((respuesta) => {
@@ -89,12 +197,16 @@ MongoClient.connect(connectionString, (err, client) => {
           console.log("Registro no encontrado");
         } else {
           console.log(respuesta, "Eliminado exitosamente");
+          return res.sendStatus(200);
         }
       })
       .catch((error) => {
+        
         console.log(error);
+        return res.sendStatus(400);
       });
   });
+
   let validar = (p) => {
     var n = false,
       l = false,
@@ -144,7 +256,7 @@ MongoClient.connect(connectionString, (err, client) => {
         .then(resultado => {
             console.log("Nuevo usuario creado", resultado);
             res.send({
-                id: resultado.insertedId,
+                id: resultado.insertedId.toString(),
                 isLogged: true
             })
         })

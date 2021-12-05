@@ -33,11 +33,6 @@ function NavBar() {
             <a href="/notes">Notas</a>
           </li>
         )}
-        {isLogged && (
-          <li>
-            <a href="/account">Mi cuenta</a>
-          </li>
-        )}
         {/*<li><a href="/notes">Notas</a></li>*/}
         {/* <li><a href="/progress">Progreso</a></li> */}
       </ul>

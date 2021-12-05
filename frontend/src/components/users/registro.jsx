@@ -55,8 +55,10 @@ function CreateUser() {
         .then((response) => {
             console.log("Data from server:", response)
             var textAlert = "";
-            if (response.status === 200)
+            if (response.status === 200){
+                localStorage.setItem("id", response.data.id);
                 setLogged(true);
+            }
             if(response.status === 201) 
                 textAlert = "Ese usuario ya existe.";
             if(response.status === 202)
@@ -95,7 +97,31 @@ function CreateUser() {
         .finally(() => console.log("termine"));
     }
 
+
+    const Crear = (e)=>{
+        const id_usuario = localStorage.getItem("id");
+        console.log(id_usuario)
+        const datos = {
+            color_fondo: "#FFFFFF",
+            color_leyenda: "#000000",
+            rect: 2,
+            id_usuario: id_usuario,
+        };
+        axios({
+            url: 'http://localhost:8080/api/notes/personalizar/'+id_usuario,
+            method: 'POST',
+            data: datos
+        })
+        .then(() => {
+            console.log("Data has been sent to the server!")
+        })
+        .catch((error) => {
+            console.log("Internal server error: ", error)
+        })
+    };
+
     if (isLogged) {
+        Crear();
         return <Redirect to = {{ pathname: "/notes" }} />;
     } else {
     return (

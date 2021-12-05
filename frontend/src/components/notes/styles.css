@@ -27,12 +27,12 @@
   height: 20vh;
 }
 .addbtn {
-    margin: 0px;
-    top: auto;
-    right: 50px;
-    bottom: 50px;
-    left: auto;
-    position: fixed;
+  top: 100px;
+  right: 50px;
+  bottom: 50px;
+  left: auto;
+  position: fixed;
+  margin-bottom: 30%;
 }
 i.icon-color {
   color: darkgray;
@@ -40,3 +40,22 @@ i.icon-color {
 /* .card-body:hover {
   height: 150px;
 } */
+
+
+.notes{
+  padding-bottom: 5rem;
+}
+
+.cargando{
+  margin: 0 auto;
+}
+.nota{
+  margin-bottom: 2%;
+  font-family: 'EB Garamond', serif;
+  
+}
+
+.main{
+  position: relative;
+  min-height: 100vh;
+}
