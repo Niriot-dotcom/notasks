@@ -9,6 +9,7 @@ import "./styles.css";
 import Progreso from "./heatMap";
 import Personalizar from "./Personalizar";
 import Configuracion from "../config/Config"
+import Logout from "../users/Logout";
 
 function Perfil() {
   const [notes, setNotes] = useState([]);
@@ -64,6 +65,12 @@ function Perfil() {
 
   return (
     <div className="main">
+      <h1 className="titulo">Cerrar sesión</h1>
+      <div>
+          <Logout/>
+        </div>
+
+
       <h1 className="titulo">Progreso</h1>
 
       {!loading ? (

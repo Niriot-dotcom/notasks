@@ -12,6 +12,8 @@ function Footer() {
                 <div className="box">
                     <h3>SOBRE NOSOTROS</h3>
                 </div>
+                {/* <a href="/home" className="box"><h3>SOBRE NOSOTROS</h3></a> */}
+
                 <div className="box">
                     <h2>REDES SOCIALES</h2>
                     <div className="red-social">

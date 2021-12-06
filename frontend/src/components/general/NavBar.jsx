@@ -14,9 +14,7 @@ function NavBar() {
         <i className="bx bx-menu"></i>
       </label>
       <ul>
-        <li>
-          <a href="/home">Inicio</a>
-        </li>
+
         <li>
           <a href="/login">Entrar</a>
         </li>
