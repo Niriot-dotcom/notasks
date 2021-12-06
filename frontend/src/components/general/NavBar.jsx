@@ -1,14 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./navbar.css";
 // import {"https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"};
 
 function NavBar() {
-  const isLogged = localStorage.getItem("isLogged");
-  console.log(isLogged);
+  const [isLogged, setLogged] = useState();
+  console.log("isLogged", isLogged);
+
+  useEffect(() => {
+    setLogged(localStorage.getItem("isLogged"));
+  }, []);
+
 
   return (
     <nav>
       <div className="logo">NOTASKs</div>
+      {/* <div className="logo">{count}</div> */}
       <input type="checkbox" id="click" />
       <label htmlFor="click" className="menu-btn">
         <i className="bx bx-menu"></i>
@@ -17,15 +23,21 @@ function NavBar() {
         <li>
           <a href="/home">Inicio</a>
         </li>
-        <li>
-          <a href="/login">Entrar</a>
-        </li>
-        <li>
-          <a href="/register">Registrarse</a>
-        </li>
-        <li>
-          <a href="/perfil">Perfil</a>
-        </li>
+        {!isLogged && (
+          <li>
+            <a href="/login">Entrar</a>
+          </li>
+        )}
+        {!isLogged && (
+          <li>
+            <a href="/register">Registrarse</a>
+          </li>
+        )}
+        {isLogged && (
+          <li>
+            <a href="/perfil">Perfil</a>
+          </li>
+        )}
         {/* <li><a href="/calendar">Calendario</a></li> */}
         {/* <li><a href="/payments">Pagos</a></li> */}
         {isLogged && (

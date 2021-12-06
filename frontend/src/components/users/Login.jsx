@@ -4,6 +4,8 @@ import { Redirect } from "react-router-dom";
 import "./styles.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { Navbar } from "react-bootstrap";
+import NavBar from "../general/NavBar";
 const MySwal = withReactContent(Swal);
 
 function Login() {

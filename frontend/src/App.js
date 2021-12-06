@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/general/NavBar";
 import Footer from "./components/general/Footer";
@@ -10,7 +10,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./components/general/Home";
 import Perfil from "./components/progreso/perfil";
 
+
 function App() {
+  console.log("hola desde app")
   return (
     <BrowserRouter>
       <Navbar />
