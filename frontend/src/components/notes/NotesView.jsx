@@ -99,13 +99,13 @@ function NotesView() {
                         </div>
                         <footer>
                             <div align="right">
-                                  <a
+                                  <a href="javascript:void(0);"
                                     className="secondary-content"
                                     onClick={() => handleDelete(notas._id)}
                                   >
                                   <i className="material-icons icon-color">delete_sweep</i>
                                   </a>
-                                  <a
+                                  <a href="javascript:void(0);"
                                     className="secondary-content"
                                     onClick={() => handleCkeck(notas._id)}
                                   >

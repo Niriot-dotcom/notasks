@@ -2,6 +2,11 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import "./styles.css";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 
 function Configuracion() {
   const id = localStorage.getItem("id");
@@ -10,6 +15,7 @@ function Configuracion() {
   const [loading, setLoading] = useState(true);
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
+  const [lastCont, setCont] = useState("");
   const [universidad, setUniversidad] = useState("");
   const [usuario, setUsuario] = useState("");
 
@@ -24,6 +30,7 @@ function Configuracion() {
           setLoading(false);
           console.log(response.data[0].mail);
           setContrasena(response.data[0].password);
+          setCont(response.data[0].password);
           setUniversidad(response.data[0].university);
           setUsuario(response.data[0].user);
           setCorreo(response.data[0].mail);
@@ -60,35 +67,82 @@ function Configuracion() {
       universidad: universidad,
       usuario: usuario,
     };
-
-    axios({
-      url: "http://localhost:8080/api/actualizar/" + id.toString(),
-      method: "POST",
-      data: datos,
-    })
-      .then(() => {
-        console.log("Data has been sent to the server!");
-        alert("Tus datos han sido actualizados!");
-      })
-      .catch((error) => {
-        console.log("Internal server error: ", error);
+    if(contrasena == lastCont){
+      MySwal.fire({
+        text: "Se ha conservado la misma contraseña",
+        icon: "success",
+        confirmButtonText: "Ok",
       });
-  };
-
-  const eliminar = (e) => {
-    if (window.confirm("¿Estás seguro que deseas eliminar la cuenta?")) {
+    }
+    else{
       axios({
-        url: "http://localhost:8080/api/eliminarcuenta/" + id.toString(),
-        method: "DELETE",
+        url: "http://localhost:8080/api/actualizar/" + id.toString(),
+        method: "POST",
+        data: datos,
       })
-        .then(() => {
-          console.log("Eliminado!");
-          setBorrar(true);
+        .then(response => {
+          console.log("Data has been sent to the server!");
+          if (response.status === 200){
+            MySwal.fire({
+              title: "Cambio exitoso",
+              text: "La contraseña se ha actualizado",
+              icon: "success",
+              confirmButtonText: "Ok",
+            });
+            setCont(contrasena);
+          }
+          else{
+            var textAlert = 
+            `
+                <h3>Contraseña invalida.</h3>
+                <center>
+                <div align = "start" style = "width: 18vw"> 
+                    Debe contener:
+                    <ul>
+                        <li>Numeros</li>
+                        <li>Minúsculas</li>
+                        <li>Mayúsculas</li>
+                        <li>Longitud mínima de 8</li>
+                        <li>Caracteres especiales</li>
+                    </ul>
+                </div>
+                </center>
+            `;
+            MySwal.fire({
+              title: "Verifica tu contraseña",
+              icon: "error",
+              html: textAlert,
+              confirmButtonText: 'Intenta de nuevo',
+            })
+          }
         })
         .catch((error) => {
           console.log("Internal server error: ", error);
         });
     }
+  };
+
+  const eliminar = (e) => {
+    Swal.fire({
+      title: '¿Estás seguro que deseas eliminar la cuenta?',
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios({
+          url: "http://localhost:8080/api/eliminarcuenta/" + id.toString(),
+          method: "DELETE",
+        })
+          .then(() => {
+            console.log("Eliminado!");
+            setBorrar(true);
+          })
+          .catch((error) => {
+            console.log("Internal server error: ", error);
+          });
+      }
+    })
   };
 
   if (borrar) {
