@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Fab } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
@@ -9,8 +9,12 @@ import "./styles.css";
 import Progreso from "./heatMap";
 import Personalizar from "./Personalizar";
 import Configuracion from "../config/Config"
+import AuthContext from "../../AuthContext.js"
 
 function Perfil() {
+  const [loggedIn, setLoggedIn] = useContext(AuthContext);
+  setLoggedIn(true);
+
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [color, setColor] = useState("#00000");
@@ -74,17 +78,17 @@ function Perfil() {
         <h1>esperando...</h1>
       )}
 
-          <div className="editbtn">
-            <Fab
-                color="secondary"
-                aria-label="edit"
-                onClick={() => {
-                  MySwal.fire(<Personalizar />).then(() =>  setLoading(true));
-                }}
-              >
-              <EditIcon/>
-            </Fab>
-          </div>
+        <div className="editbtn">
+          <Fab
+              color="secondary"
+              aria-label="edit"
+              onClick={() => {
+                MySwal.fire(<Personalizar />).then(() =>  setLoading(true));
+              }}
+            >
+            <EditIcon/>
+          </Fab>
+        </div>
 
         <div className="configuracion">
           <Configuracion/>

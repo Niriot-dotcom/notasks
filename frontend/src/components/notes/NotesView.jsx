@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CreateNote from "./CreateNote";
 import { ObjectId } from "bson";
 import axios from "axios";
@@ -8,14 +8,18 @@ import AddIcon from "@mui/icons-material/Add";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { Card, footer} from 'react-bootstrap';
+import AuthContext from "../../AuthContext.js"
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,800&display=swap');
-</style>  
+
+import img1 from './assets/img.JPG'
 
 const MySwal = withReactContent(Swal);
 
 function NotesView() {
+  const [loggedIn, setLoggedIn] = useContext(AuthContext);
+  setLoggedIn(true);
+  console.log("desde notas", loggedIn);
+
   const [notes, setNotes] = useState([
     {
       id: ObjectId(),
@@ -79,7 +83,7 @@ function NotesView() {
 
   return (
     <div className= "main">
-      <h1>Notas de la Semana</h1>
+      <h1 className="titulo">Notas</h1>
 
       <div className="container notes">
         <div className="row">
@@ -88,37 +92,38 @@ function NotesView() {
             return (
               <div className="col-md-4 animate__animated animate__fadeInUp nota" key={index}>
                       {console.log(notes.length)}
-                      <Card>
-                      <div className="overflow-auto">
-                        <Card.Body >
-                          <Card.Title>{notas.titulo}</Card.Title>                
-                          <Card.Text>
-                              {notas.descripcion}
-                          </Card.Text>
-                        </Card.Body>
-                        </div>
-                        <footer>
-                            <div align="right">
-                                  <a
-                                    className="secondary-content"
-                                    onClick={() => handleDelete(notas._id)}
-                                  >
-                                  <i className="material-icons icon-color">delete_sweep</i>
-                                  </a>
-                                  <a
-                                    className="secondary-content"
-                                    onClick={() => handleCkeck(notas._id)}
-                                  >
-                                  <i className="material-icons icon-color">check</i>
-                                  </a>
+                      <Card className="card">
+                          <div className="overflow-auto">
+                            <Card.Body >
+                              <Card.Title>{notas.titulo}</Card.Title>                
+                              <Card.Text>
+                                  {notas.descripcion}
+                              </Card.Text>
+                            </Card.Body>
                             </div>
-                        </footer>
+                            
+                            <footer className="bg-white">
+                                <div align="right">
+                                      <a
+                                        className="secondary-content"
+                                        onClick={() => handleDelete(notas._id)}
+                                      >
+                                      <i className="material-icons icon-color">delete_sweep</i>
+                                      </a>
+                                      <a
+                                        className="secondary-content"
+                                        onClick={() => handleCkeck(notas._id)}
+                                      >
+                                      <i className="material-icons icon-color">check</i>
+                                      </a>
+                                </div>
+                            </footer>
                     </Card>
                
               </div>
             );
           })
-          ): !loading ?  <div><h1>!Crea una tarea!</h1> <p>Para crear una nota, es necesario dar click en el boton flotante arriba a la derecha</p> <h3>Iconos</h3> <p><i className="material-icons icon-color">check</i> Al dar click la tarea ha sido finalizada, posterior a esto se mostrará en el heatmap</p> <p><i className="material-icons icon-color">delete_sweep</i> Elimina una nota de forma permanente</p></div> : (
+          ): !loading ?  <div className="valores"><h1>!Crea una nota!</h1> <p>Para crear una nota, es necesario dar click en el     <Fab aria-label="add" size="small"  > <AddIcon/> </Fab> flotante</p> <h3>Simbología</h3> <p><i className="material-icons icon-color">check</i> Al dar click la tarea será finalizada, posterior a esto se mostrará en el heatmap</p> <p><i className="material-icons icon-color">delete_sweep</i> Elimina una nota de forma permanente</p></div> : (
           <div className="spinner-border text-primary cargando" role="status">
             <span className="sr-only"></span>
           </div>

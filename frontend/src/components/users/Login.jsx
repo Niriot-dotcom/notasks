@@ -1,12 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import "./styles.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import AuthContext from "../../AuthContext.js"
+
 const MySwal = withReactContent(Swal);
 
 function Login() {
+  const [loggedIn, setLoggedIn] = useContext(AuthContext);
+  setLoggedIn(false);
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [isLogged, setLogged] = useState(false);
@@ -41,6 +45,8 @@ function Login() {
           localStorage.setItem("id", response.data.id);
           localStorage.setItem("isLogged", response.data.isLogged);
           setLogged(true);
+
+          setLoggedIn(true);
         } else {
           MySwal.fire({
             title: "No existe el usuario.",
@@ -57,6 +63,7 @@ function Login() {
   };
 
   if (isLogged) {
+    console.log("Lo que muestra desde login",loggedIn);
     localStorage.setItem("isLogged", true);
     return <Redirect to={{ pathname: "/notes" }} />;
   } else {

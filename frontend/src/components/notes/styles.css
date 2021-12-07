@@ -1,17 +1,3 @@
-.grid {
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-}
-.grid .one {
-  /* border-radius: 5%; */
-  margin: 1%;
-  overflow: hidden;
-  overflow-y: auto;
-}
-.grid .one:hover{
-  color: black;
-  border-color: darkgray;
-}
 .crear {
   margin-bottom: 10%;
   margin-top: 5%;
@@ -37,10 +23,6 @@
 i.icon-color {
   color: darkgray;
 }
-/* .card-body:hover {
-  height: 150px;
-} */
-
 
 .notes{
   padding-bottom: 5rem;
@@ -52,10 +34,20 @@ i.icon-color {
 .nota{
   margin-bottom: 2%;
   font-family: 'EB Garamond', serif;
-  
 }
 
 .main{
-  position: relative;
   min-height: 100vh;
+  /*background-image: url("./assets/fondo4.jpg");*/
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.valores{
+  display: flex;
+  flex-direction: column;
+  align-items:flex-start;
+  background-image: radial-gradient(circle at 50% -3.03%, #eea640 0, #f59c40 7.14%, #fb9041 14.29%, #ff8344 21.43%, #ff7448 28.57%, #ff644c 35.71%, #ff5052 42.86%, #ff3858 50%, #fb1260 57.14%, #f50069 64.29%, #ee0075 71.43%, #e40081 78.57%, #d9008f 85.71%, #cb009e 92.86%, #ba00ad 100%);
+
 }

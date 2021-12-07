@@ -99,7 +99,8 @@ function Progreso(props) {
 
   return (
     <div>
-      <span>Window size: {((width*70)/100)} x {height} {((width*70)/100)/100 +10}</span>;
+      {/*<span>Window size: {((width*70)/100)} x {height} {((width*70)/100)/100 +10}</span>*/ }
+      
 
       <div className="heatmap" style={{"backgroundColor": props.colorfondo}}>
         <HeatMap
@@ -160,21 +161,26 @@ function Progreso(props) {
             Total completado:{" "}
             {notas.has(selected) ? notas.get(selected).length : 0}
           </p>
-          {notas.get(selected) &&
-            notas.get(selected).map((Notas_Dia, index) => {
-              return (
-                <div className="container col" key={index}>
-                  <Card>
-                    <Card.Header>
-                      <Card.Title>{Notas_Dia.titulo}</Card.Title>
-                    </Card.Header>
-                    <Card.Body className="one">
-                      <Card.Text>{Notas_Dia.descripcion}</Card.Text>
-                    </Card.Body>
-                  </Card>
-                </div>
-              );
-            })}
+          <div className="row">
+            {notas.get(selected) &&
+              notas.get(selected).map((Notas_Dia, index) => {
+                return (
+                  
+                    <div className="col-md-4 animate__animated animate__fadeInUp nota" key={index}>
+                      <Card className="card">
+                              <div className="overflow-auto">
+                                <Card.Body >
+                                  <Card.Title>{Notas_Dia.titulo}</Card.Title>                
+                                  <Card.Text>
+                                      {Notas_Dia.descripcion}
+                                  </Card.Text>
+                                </Card.Body>
+                                </div>
+                        </Card>
+                    </div>
+                );
+              })}
+            </div>
         </div>
       ) : (
         <h1>Selecciona una casilla para ver tu progreso de ese día</h1>

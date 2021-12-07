@@ -134,28 +134,18 @@ function CreateUser() {
                         <div class="col">
                         <div class="form-outline">
                             <input type="text" id="form3Example1" class="form-control" 
-                             placeholder=""
+                             placeholder="Usuario"
                              value={user}
                              onChange={handleUserChange}
                             />
                             <label class="form-label" for="form3Example1">Nombre de Usuario</label>
                         </div>
                         </div>
-                        <div class="col">
-                        <div class="form-outline">
-                            <input type="text" id="form3Example2" class="form-control" 
-                             placeholder=""
-                             value={university}
-                             onChange={handleUniversityChange}
-                             />
-                            <label class="form-label" for="form3Example2">Universidad</label>
-                        </div>
-                        </div>
                     </div>
 
                     <div class="form-outline mb-4">
                         <input type="email" id="form3Example3" class="form-control" 
-                        placeholder=""
+                        placeholder="Correo"
                         value={mail}
                         onChange={handleMailChange}
                         />
@@ -164,7 +154,7 @@ function CreateUser() {
 
                     <div class="form-outline mb-4">
                         <input type="password" id="form3Example4" class="form-control"
-                         placeholder=""
+                         placeholder="Contraseña"
                          value={password}
                          onChange={handlePasswordChange}
                         />

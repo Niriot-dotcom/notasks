@@ -129,8 +129,7 @@ function Configuracion() {
           <button className="btn btn-outline-success">Guardar</button>
         </form>
 
-        <div className=" titulo">
-          {" "}
+        <div className="titulo">
           <h1>Eliminar Cuenta</h1>
         </div>
         <p>

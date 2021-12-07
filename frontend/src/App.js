@@ -8,34 +8,43 @@ import Login from "./components/users/Login";
 import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./components/general/Home";
 import Perfil from "./components/progreso/perfil";
+import Logout from "./components/users/Logout";
+
+import UserContext from "./UserContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Navbar />
+    <UserContext>
+      <BrowserRouter>
+        <Navbar />
 
-      <Route exact={true} path="/home">
-        <Home />
-      </Route>
+        <Route exact={true} path="/home">
+          <Home />
+        </Route>
 
-      <Route exact={true} path="/notes">
-        <NotesView />
-      </Route>
+        <Route exact={true} path="/notes">
+          <NotesView />
+        </Route>
 
-      <Route exact={true} path="/login">
-        <Login />
-      </Route>
+        <Route exact={true} path="/login">
+          <Login />
+        </Route>
 
-      <Route exact={true} path="/register">
-        <Register />
-      </Route>
+        <Route exact={true} path="/register">
+          <Register />
+        </Route>
 
-      <Route exact={true} path="/perfil">
-        <Perfil />
-      </Route>
+        <Route exact={true} path="/perfil">
+          <Perfil />
+        </Route>
 
-      <Footer />
-    </BrowserRouter>
+        <Route exact={true} path="/logout">
+          <Logout />
+        </Route>
+
+        <Footer />
+      </BrowserRouter>
+    </UserContext>
   );
 }
 

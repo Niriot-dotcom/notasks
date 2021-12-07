@@ -1,7 +1,5 @@
 .progreso {
   margin-bottom: 10%;
-  margin-top: 1%;
-  white-space: nowrap;
   display: flex;
   justify-content: end;
   flex-direction: column;
@@ -15,8 +13,7 @@
 }
 
 .titulo {
-  margin-top: 2%;
-  margin-bottom: 2.5%;
+  margin-top: 1.5%;
   font-size: 4.5vw;
   display: flex;
   justify-content: center;
@@ -42,4 +39,18 @@
 .main{
   position: relative;
   min-height: 100vh;
+}
+
+.personalizar{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.componente{
+  margin-bottom: 15%;
+}
+
+.texto{
+  font-size: 0.8rem;
 }
