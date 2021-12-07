@@ -53,3 +53,19 @@
   margin-bottom: 2%;
   margin-top: 2%;
 }
+
+h1{
+  text-align:center;
+ }
+
+
+
+
+.one{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4%;
+  font-size: 1rem;
+
+}

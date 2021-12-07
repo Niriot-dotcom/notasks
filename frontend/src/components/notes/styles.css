@@ -48,6 +48,12 @@ i.icon-color {
   display: flex;
   flex-direction: column;
   align-items:flex-start;
-  background-image: radial-gradient(circle at 50% -3.03%, #eea640 0, #f59c40 7.14%, #fb9041 14.29%, #ff8344 21.43%, #ff7448 28.57%, #ff644c 35.71%, #ff5052 42.86%, #ff3858 50%, #fb1260 57.14%, #f50069 64.29%, #ee0075 71.43%, #e40081 78.57%, #d9008f 85.71%, #cb009e 92.86%, #ba00ad 100%);
+  background-color:   #ecf0f1         ;
+  border: 2px solid  #2980b9  ;
+}
 
+.title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

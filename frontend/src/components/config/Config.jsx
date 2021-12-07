@@ -144,7 +144,7 @@ function Configuracion() {
   };
 
   if (borrar) {
-    return <Redirect to={{ pathname: "/Salir" }} />;
+    return <Redirect to={{ pathname: "/logout" }} />;
   }
 
   return (
