@@ -105,12 +105,14 @@ function NotesView() {
                             <footer className="bg-white">
                                 <div align="right">
                                       <a
+                                        href="javascript:void(0);"
                                         className="secondary-content"
                                         onClick={() => handleDelete(notas._id)}
                                       >
                                       <i className="material-icons icon-color">delete_sweep</i>
                                       </a>
                                       <a
+                                        href="javascript:void(0);"
                                         className="secondary-content"
                                         onClick={() => handleCkeck(notas._id)}
                                       >
@@ -123,7 +125,7 @@ function NotesView() {
               </div>
             );
           })
-          ): !loading ?  <div className="valores"><h1>!Crea una nota!</h1> <p>Para crear una nota, es necesario dar click en el     <Fab aria-label="add" size="small"  > <AddIcon/> </Fab> flotante</p> <h3>Simbología</h3> <p><i className="material-icons icon-color">check</i> Al dar click la tarea será finalizada, posterior a esto se mostrará en el heatmap</p> <p><i className="material-icons icon-color">delete_sweep</i> Elimina una nota de forma permanente</p></div> : (
+          ): !loading ?  <div className="valores"><h1>¡Crea una nota!</h1> <p>Para crear una nota, es necesario dar click en el     <Fab aria-label="add" size="small"  > <AddIcon/> </Fab> flotante</p> <h3>Simbología</h3> <p><i className="material-icons icon-color">check</i> Al dar click la tarea será finalizada, posterior a esto se mostrará en el heatmap</p> <p><i className="material-icons icon-color">delete_sweep</i> Elimina una nota de forma permanente</p></div> : (
           <div className="spinner-border text-primary cargando" role="status">
             <span className="sr-only"></span>
           </div>
@@ -134,6 +136,7 @@ function NotesView() {
 
       <div className="addbtn">
           <Fab
+            color="secondary"
             aria-label="add"
             onClick={() => {
               MySwal.fire(<CreateNote />).then(() =>  setLoading(true));

@@ -288,7 +288,7 @@ MongoClient.connect(connectionString, (err, client) => {
 
   app.post("/api/actualizar/:id", (req, res) => {
     const { id } = req.params;
-    if (req.body.contrasena != "") {
+    if (validar({password: req.body.contrasena})) {
       db.collection("Usuarios")
         .findOneAndUpdate(
           { _id: ObjectID(id) },
@@ -300,10 +300,11 @@ MongoClient.connect(connectionString, (err, client) => {
         )
         .then((result) => {
           console.log("Modificado correctamente: ", result);
+          res.sendStatus(200);
         })
         .catch((error) => console.error(error));
     }
-    res.sendStatus(200);
+    else res.sendStatus(201);
   });
 
   app.delete("/api/eliminarcuenta/:id", (req, res) => {

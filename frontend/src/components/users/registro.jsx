@@ -130,6 +130,7 @@ function CreateUser() {
             <div className="inicio">
                 <h1>Registro</h1>
                 <form onSubmit={handleSubmit}>
+                    <br></br>
                     <div class="row mb-4">
                         <div class="col">
                         <div class="form-outline">
@@ -161,7 +162,7 @@ function CreateUser() {
                         <label class="form-label" for="form3Example4">Contraseña</label>
                     </div>
 
-                    <div class="form-check d-flex justify-content-flex-center mb-4">
+                    {/* <div class="form-check d-flex justify-content-flex-center mb-4">
                         <input
                             class="form-check-input me-2"
                             type="checkbox"
@@ -170,13 +171,10 @@ function CreateUser() {
                         <label class="form-check-label">
                             Recibir notificaciones
                         </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block mb-4">Registrar</button>
+                    </div> */}
+                    <button type="submit" class="btn btn-outline-dark btn-block mb-4">Registrar</button>
             </form>
             </div>
-            <br></br>
-            <br></br>
-            <br></br>
             <br></br>
             <br></br>
             <br></br>

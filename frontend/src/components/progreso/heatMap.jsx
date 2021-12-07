@@ -183,7 +183,7 @@ function Progreso(props) {
             </div>
         </div>
       ) : (
-        <h1>Selecciona una casilla para ver tu progreso de ese día</h1>
+        <h2>Selecciona una casilla para ver tu progreso de ese día</h2>
       )}
 
       <div id="picker"></div>

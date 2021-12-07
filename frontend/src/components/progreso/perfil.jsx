@@ -75,7 +75,7 @@ function Perfil() {
           <Progreso Fechas={notes} color = {color} colorfondo ={colorfondo} range = {range}/>{" "}
         </div>
       ) : (
-        <h1>esperando...</h1>
+        <h2>Estamos alistando todo...</h2>
       )}
 
         <div className="editbtn">

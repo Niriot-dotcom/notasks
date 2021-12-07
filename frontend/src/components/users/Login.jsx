@@ -72,6 +72,7 @@ function Login() {
       <div>
         <div className="inicio">
           <h1>Inicio de Sesión</h1>
+          <br></br>
           <form onSubmit={handleSubmit}>
             <div class="form-outline mb-4">
               <input
@@ -101,7 +102,7 @@ function Login() {
               </label>
             </div>
 
-            <div class="row mb-4">
+            {/* <div class="row mb-4">
               <div class="col d-flex justify-content-center">
                 <div class="form-check">
                   <input
@@ -116,18 +117,14 @@ function Login() {
                 </div>
               </div>
 
-              <div class="col">{/* <a href="#!">Forgot password?</a> */}</div>
-            </div>
+              <div class="col"><a href="#!">Forgot password?</a></div>
+            </div> */}
 
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="submit" class="btn btn-outline-dark btn-block">
               iniciar sesión
             </button>
           </form>
         </div>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
         <br></br>
         <br></br>
       </div>
